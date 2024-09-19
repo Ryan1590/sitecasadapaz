@@ -61,7 +61,7 @@ const Home = () => {
 
         <div className="mt-4">
           <Link href="/pages/Sobre">
-            <button className="btn btn-light me-2 btn-hover">Conheça Casa da Paz</button>
+            <button className="btn btn-outline-light me-2 btn-hover">Conheça Casa da Paz</button>
           </Link>
           <Link href="/pages/Doacao">
             <button className="btn btn-outline-light btn-hover">Saiba como doar</button>
