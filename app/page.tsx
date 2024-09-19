@@ -1,18 +1,18 @@
 "use client"; // Para indicar que é um Client Component
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const Home = () => {
   const [isAnimating, setIsAnimating] = useState(false);
-  const [nextPage, setNextPage] = useState<string>(''); // Defina o tipo de nextPage como string
+  const [nextPage, setNextPage] = useState<string>(''); 
 
-  const handleNavigation = (page: string) => { // Adicione o tipo para o parâmetro
+  const handleNavigation = (page: string) => { 
     setIsAnimating(true);
     setNextPage(page);
     
     setTimeout(() => {
-      window.location.href = page; // Redireciona após 2 segundos
+      window.location.href = page; 
     }, 2000);
   };
 
@@ -100,7 +100,7 @@ const Home = () => {
 
         {isAnimating && (
           <div className="animation-container">
-            <div className="bike-animation"><img src="/img/moto.png" alt="moto" width="50px" height="50px"/></div>
+            <div className="bike-animation"><img src="/img/pomba.png" alt="moto" width="50px" height="50px"/></div>
           </div>
         )}
 
