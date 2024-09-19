@@ -120,7 +120,7 @@
 
 .bike-animation {
   font-size: 4rem; /* Tamanho do emoji da motinha */
-  transform: rotate(180deg); /* Rotaciona para a direita */
+  transform: rotate(185deg); /* Rotaciona para a direita */
   animation: accelerate 2s forwards; /* Animação de aceleração */
 }
 
@@ -129,6 +129,6 @@
     transform: translate(-50%, 0);
   }
   100% {
-    transform: translate(200px, -100px); /* Ajuste conforme necessário */
+    transform: translate(200px, -80px); /* Ajuste conforme necessário */
   }
 }

@@ -100,7 +100,7 @@ const Home = () => {
 
         {isAnimating && (
           <div className="animation-container">
-            <div className="bike-animation">🏍️</div>
+            <div className="bike-animation"><img src="/img/moto.png" alt="moto" width="50px" height="50px"/></div>
           </div>
         )}
 
