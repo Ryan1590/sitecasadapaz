@@ -5,16 +5,15 @@ import { useState } from 'react';
 
 const Home = () => {
   const [isAnimating, setIsAnimating] = useState(false);
-  const [nextPage, setNextPage] = useState<string>(''); 
 
   const handleNavigation = (page: string) => { 
     setIsAnimating(true);
-    setNextPage(page);
-    
+
     setTimeout(() => {
       window.location.href = page; 
     }, 2000);
   };
+
 
   return (
     <div className="home-container d-flex flex-column min-vh-100 position-relative overflow-hidden">
