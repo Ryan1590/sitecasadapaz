@@ -1,22 +1,20 @@
 "use client"; // Para indicar que é um Client Component
 
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Home = () => {
-  useEffect(() => {
-    const title = document.getElementById('title');
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [nextPage, setNextPage] = useState<string>(''); // Defina o tipo de nextPage como string
+
+  const handleNavigation = (page: string) => { // Adicione o tipo para o parâmetro
+    setIsAnimating(true);
+    setNextPage(page);
     
-    if (title) {
-      title.classList.add('animate-title');
-
-      const timer = setTimeout(() => {
-        title.classList.remove('animate-title');
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, []);
+    setTimeout(() => {
+      window.location.href = page; // Redireciona após 2 segundos
+    }, 2000);
+  };
 
   return (
     <div className="home-container d-flex flex-column min-vh-100 position-relative overflow-hidden">
@@ -25,32 +23,86 @@ const Home = () => {
           <nav className="container">
             <ul className="nav justify-content-center">
               <li className="nav-item">
-                <Link className="nav-link text-white nav-item-hover fw-bold" href="/">Início</Link>
+                <a
+                  className="nav-link text-white nav-item-hover fw-bold"
+                  href="/"
+                  onClick={(e) => { e.preventDefault(); handleNavigation('/'); }}
+                >
+                  Início
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white nav-item-hover fw-bold" href="/pages/Sobre">Sobre Nós</Link>
+                <a
+                  className="nav-link text-white nav-item-hover fw-bold"
+                  href="/pages/Sobre"
+                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Sobre'); }}
+                >
+                  Sobre Nós
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white nav-item-hover fw-bold" href="/pages/ComoAjudar">Como Ajudar</Link>
+                <a
+                  className="nav-link text-white nav-item-hover fw-bold"
+                  href="/pages/ComoAjudar"
+                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/ComoAjudar'); }}
+                >
+                  Como Ajudar
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white nav-item-hover fw-bold" href="/pages/Doacao">Doações</Link>
+                <a
+                  className="nav-link text-white nav-item-hover fw-bold"
+                  href="/pages/Doacao"
+                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Doacao'); }}
+                >
+                  Doações
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white nav-item-hover fw-bold" href="/pages/Galeria">Galeria</Link>
+                <a
+                  className="nav-link text-white nav-item-hover fw-bold"
+                  href="/pages/Galeria"
+                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Galeria'); }}
+                >
+                  Galeria
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white nav-item-hover fw-bold" href="/pages/Bazar">Bazar</Link>
+                <a
+                  className="nav-link text-white nav-item-hover fw-bold"
+                  href="/pages/Bazar"
+                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Bazar'); }}
+                >
+                  Bazar
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white nav-item-hover fw-bold" href="/pages/Premios">Prêmios</Link>
+                <a
+                  className="nav-link text-white nav-item-hover fw-bold"
+                  href="/pages/Premios"
+                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Premios'); }}
+                >
+                  Prêmios
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white nav-item-hover fw-bold" href="/pages/Contato">Contato</Link>
+                <a
+                  className="nav-link text-white nav-item-hover fw-bold"
+                  href="/pages/Contato"
+                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Contato'); }}
+                >
+                  Contato
+                </a>
               </li>
             </ul>
           </nav>
         </div>
+
+        {isAnimating && (
+          <div className="animation-container">
+            <div className="bike-animation">🏍️</div>
+          </div>
+        )}
 
         <h1 id="title" className="display-4 fw-bold fade-in">Casa da Paz</h1>
         <blockquote className="blockquote text-center">
@@ -68,14 +120,12 @@ const Home = () => {
           </Link>
         </div>
 
-        {/* Texto animado "Doar faz bem" */}
         <div className="floating-text">Doar faz bem</div>
       </main>
 
       <footer className="bg-dark text-center text-white p-3">
         <p>&copy; 2024 Casa da Paz. Todos os direitos reservados.</p>
       </footer>
-
     </div>
   );
 };
