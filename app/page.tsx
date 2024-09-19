@@ -104,18 +104,18 @@ const Home = () => {
         )}
 
         <h1 id="title" className="display-4 fw-bold fade-in">Casa da Paz</h1>
-        <blockquote className="blockquote text-center">
+        <blockquote className="blockquote text-center fw-bold">
           <p className="mb-0">“Sei que meu trabalho é uma gota no oceano, mas sem ele, o oceano seria menor.”</p>
           <br />
-          <p className="blockquote-footer">Santa Teresa de Calcutá</p>
+          <p className="blockquote-footer text-white">Santa Teresa de Calcutá</p>
         </blockquote>
 
         <div className="mt-4">
           <Link href="/pages/Sobre">
-            <button className="btn btn-outline-light me-2 btn-hover">Conheça Casa da Paz</button>
+            <button className="btn btn-outline-light me-2 btn-hover fw-bold">Conheça Casa da Paz</button>
           </Link>
           <Link href="/pages/Doacao">
-            <button className="btn btn-outline-light btn-hover">Saiba como doar</button>
+            <button className="btn btn-outline-light btn-hover fw-bold">Saiba como doar</button>
           </Link>
         </div>
 
