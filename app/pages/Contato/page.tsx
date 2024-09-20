@@ -1,5 +1,11 @@
+import Header from '../Header/page';
 const Contato = () => {
-    return <h1>Contato</h1>;
+  return (
+    <div className="d-flex flex-column min-vh-100 pt-16"> 
+       <Header />
+        <h1>Contato</h1>
+      </div>
+  );
   };
   
   export default Contato;
