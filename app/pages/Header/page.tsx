@@ -8,6 +8,7 @@ const Header = () => {
   return (
     
     <header className="bg-white text-white p-3">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"></link>
       <nav className="container">
         <ul className="nav justify-content-center">
           <li className="nav-item">

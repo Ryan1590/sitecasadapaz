@@ -27,7 +27,7 @@ const Home = () => {
                   href="/"
                   onClick={(e) => { e.preventDefault(); handleNavigation('/'); }}
                 >
-                  Início
+                  INÍCIO
                 </a>
               </li>
               <li className="nav-item">
@@ -36,7 +36,7 @@ const Home = () => {
                   href="/pages/Sobre"
                   onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Sobre'); }}
                 >
-                  Sobre Nós
+                  SOBRE NÓS
                 </a>
               </li>
               <li className="nav-item">
@@ -45,7 +45,7 @@ const Home = () => {
                   href="/pages/ComoAjudar"
                   onClick={(e) => { e.preventDefault(); handleNavigation('/pages/ComoAjudar'); }}
                 >
-                  Como Ajudar
+                  COMO AJUDAR
                 </a>
               </li>
               <li className="nav-item">
@@ -54,7 +54,7 @@ const Home = () => {
                   href="/pages/Doacao"
                   onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Doacao'); }}
                 >
-                  Doações
+                  DOAÇÕES
                 </a>
               </li>
               <li className="nav-item">
@@ -63,7 +63,7 @@ const Home = () => {
                   href="/pages/Galeria"
                   onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Galeria'); }}
                 >
-                  Galeria
+                  GALERIA
                 </a>
               </li>
               <li className="nav-item">
@@ -72,7 +72,7 @@ const Home = () => {
                   href="/pages/Bazar"
                   onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Bazar'); }}
                 >
-                  Bazar
+                  BAZAR
                 </a>
               </li>
               <li className="nav-item">
@@ -81,7 +81,7 @@ const Home = () => {
                   href="/pages/Premios"
                   onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Premios'); }}
                 >
-                  Prêmios
+                  PRÊMIOS
                 </a>
               </li>
               <li className="nav-item">
@@ -90,7 +90,7 @@ const Home = () => {
                   href="/pages/Contato"
                   onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Contato'); }}
                 >
-                  Contato
+                  CONTATO
                 </a>
               </li>
             </ul>

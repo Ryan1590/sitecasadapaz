@@ -43,8 +43,8 @@
 }
 
 .nav-item-hover:hover {
-  background-color: #ffffff; /* Fundo branco ao passar o mouse */
-  color: #000000 !important; /* Texto preto ao passar o mouse */
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo mais transparente ao passar o mouse */
+  backdrop-filter: blur(7px); /* Aumenta o desfoque ao passar o mouse, mas de forma leve */
 }
 
 
