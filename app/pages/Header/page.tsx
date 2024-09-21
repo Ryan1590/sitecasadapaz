@@ -1,16 +1,26 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import '../Estilo/header.css';
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    
     <header className="bg-white text-white p-3">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"></link>
       <nav className="container">
-        <ul className="nav justify-content-center">
+        <div className="menu-wrapper">
+          <button className="menu-toggle" onClick={toggleMenu}>
+            <i className="fas fa-bars"></i>
+          </button>
+        </div>
+        <ul className={`nav justify-content-center ${isMenuOpen ? 'show' : ''}`}>
           <li className="nav-item">
             <Link className="nav-link nav-link-padrao text-dark fw-bold mr-4" href="/">INÍCIO</Link>
           </li>
