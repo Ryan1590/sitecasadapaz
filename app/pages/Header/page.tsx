@@ -7,14 +7,19 @@ import '../Estilo/header.css';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLUListElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null); // Ref para o botão
 
-  const toggleMenu = () => {
+  const toggleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation(); // Evita que o clique no botão dispare o handleClickOutside
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-    // Verifica se o clique foi fora do menu
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+    // Verifica se o clique foi fora do menu e fora do botão
+    if (
+      menuRef.current && !menuRef.current.contains(event.target as Node) &&
+      buttonRef.current && !buttonRef.current.contains(event.target as Node)
+    ) {
       setIsMenuOpen(false);
     }
   };
@@ -34,7 +39,7 @@ const Header = () => {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"></link>
       <nav className="container">
         <div className="menu-wrapper">
-          <button className="menu-toggle" onClick={toggleMenu}>
+          <button ref={buttonRef} className="menu-toggle" onClick={toggleMenu}>
             <i className="fas fa-bars"></i>
           </button>
         </div>
