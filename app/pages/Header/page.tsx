@@ -1,15 +1,33 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import '../Estilo/header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLUListElement>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    // Verifica se o clique foi fora do menu
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    // Adiciona o evento de clique
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Remove o evento ao desmontar o componente
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="bg-white text-white p-3">
@@ -20,7 +38,7 @@ const Header = () => {
             <i className="fas fa-bars"></i>
           </button>
         </div>
-        <ul className={`nav justify-content-center ${isMenuOpen ? 'show' : ''}`}>
+        <ul ref={menuRef} className={`nav justify-content-center ${isMenuOpen ? 'show' : ''}`}>
           <li className="nav-item">
             <Link className="nav-link nav-link-padrao text-dark fw-bold mr-4" href="/">INÍCIO</Link>
           </li>
