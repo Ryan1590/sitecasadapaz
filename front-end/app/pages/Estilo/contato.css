@@ -1,6 +1,5 @@
 
-  
-  a:hover {
+  a.link-hover:hover {
     color: #007bff !important;
     text-decoration: underline;
     transition: color 0.3s ease, text-decoration 0.3s ease;
