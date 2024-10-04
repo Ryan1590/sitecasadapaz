@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('atividades');
             $table->text('recursos');
             $table->text('sede');
+            $table->text('missao');
             $table->timestamps();
         });
     }

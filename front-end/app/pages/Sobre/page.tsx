@@ -10,6 +10,9 @@ interface SobreData {
   atividades: string;
   recursos: string;
   sobre: string;
+  imagem_missao?: string; 
+  banner_principal:string;
+  missao:string;
 }
 
 interface MembroEquipe {
@@ -62,12 +65,12 @@ const Sobre = () => {
       <Header />
 
       {/* Banner */}
-      <div className="text-center" style={{ overflow: 'hidden', height: '300px' }}>
+      <div className="text-center" style={{ overflow: 'hidden', height: '400px' }}>
         <img
-          src="/img/bannercasadapaz.jpg"
+        src={`data:image/jpeg;base64,${sobre[0]?.banner_principal|| "Carregando..."}`}
           alt="Banner da Casa da Paz"
           className="img-fluid"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{ width: '100%', height: '100%', objectFit: 'fill' }}
         />
       </div>
 
@@ -76,7 +79,7 @@ const Sobre = () => {
           <div className="row mb-5">
             <div className="col-md-6">
               <img
-                src="/img/SobreCasaDaPaz.jpg"
+                src={`data:image/jpeg;base64,${sobre[0]?.imagem_missao || "Carregando..."}`}
                 alt="Descrição da imagem"
                 className="img-fluid rounded-circle mb-4 shadow"
                 style={{ height: '300px', objectFit: 'cover' }}
@@ -88,7 +91,7 @@ const Sobre = () => {
                   <h2 className="card-title">
                     <i className="fas fa-bullseye text-primary mr-2"></i> Nossa Missão
                   </h2>
-                  <p className="text-muted">{sobre[0]?.sobre || "Carregando..."}</p>
+                  <p className="text-muted">{sobre[0]?.missao || "Carregando..."}</p>
                 </div>
               </div>
               <div className="card mb-4">
@@ -155,7 +158,7 @@ const Sobre = () => {
           </section>
 
           <hr className="my-5" />
-          <h2 className="text-center mb-4">Nossa Equipe</h2>
+          <h2 className="text-center mb-4">Diretoria</h2>
           <div className="row mb-5">
             <div className="row mb-5">
               {equipe.map((membro) => (

@@ -12,9 +12,21 @@ class SobrenosController extends Controller
      */
     public function index()
     {
-        $sobre = Sobrenos::all();
+        $sobre = Sobrenos::all()->map(function ($item) {
+            if ($item->imagem_missao) {
+                $item->imagem_missao = base64_encode($item->imagem_missao);
+            }
+
+            if ($item->banner_principal) {
+                $item->banner_principal = base64_encode($item->banner_principal);
+            }
+
+            return $item;
+        });
+
         return response()->json($sobre);
     }
+
 
     /**
      * Show the form for creating a new resource.
