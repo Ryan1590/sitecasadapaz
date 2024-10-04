@@ -25,10 +25,9 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // Adiciona o evento de clique
+    
     document.addEventListener('mousedown', handleClickOutside);
 
-    // Remove o evento ao desmontar o componente
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Header/page';
 import '../Estilo/sobre.css';
+import Rodape from '../Rodape/page';
 
 interface SobreData {
   sede: string;
@@ -184,6 +185,7 @@ const Sobre = () => {
           </div>
         </div>
       </main>
+      <Rodape/>
     </div>
   );
 };
