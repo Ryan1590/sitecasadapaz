@@ -49,6 +49,17 @@ const Contato = () => {
                   </p>
                 </div>
               </div>
+              <div className="d-flex align-items-center mb-3">
+              <FaEnvelope className="icon-style" style={{ color: '#6c757d' }} />
+              <div>
+                <h5>E-mail:</h5>
+                <p>
+                  <a href="mailto:casadapazassociacao@gmail.com" className="text-decoration-none text-dark link-hover">
+                    casadapazassociacao@gmail.com
+                  </a>
+                </p>
+              </div>
+            </div>
             </div>
           </div>
 
