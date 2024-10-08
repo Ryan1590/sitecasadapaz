@@ -23,3 +23,6 @@
 ### Comando para criar um projeto em next 
 #### npx create-next-app@latest sitecasadapaz
 #### marcar yes para tudo
+
+## Verificar se o React-icons esta instalado, caso não esteja usar esse comando
+### npm install bootstrap react-icons
