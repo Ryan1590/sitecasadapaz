@@ -1,16 +1,48 @@
+"use client";
+
 import '../Estilo/contato.css';
 import Header from '../Header/page';
 import { FaPhoneAlt, FaInstagram, FaFacebook, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Rodape from '../Rodape/page';
+import React, { useEffect, useState } from 'react';
+
+interface ContatoData {
+  whatsapp: string;
+  instagram: string;
+  fanpage: string;
+  endereco_sede: string;
+  endereco_bazar: string;
+  instagram_bazar: string; 
+  email:string;
+}
+
 
 const Contato = () => {
+
+  const [contato, setContato] = useState<ContatoData[]>([]);
+
+  useEffect(() => {
+    const fetchContato = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/contatos');
+        if (!response.ok) throw new Error('não houve uma boa resposta');
+        const data: ContatoData[] = await response.json();
+        setContato(data);
+      } catch (error) {
+        console.error('Fetch error:', error);
+      }
+    };
+
+    fetchContato();
+  }, []);
+
+
   return (
     <div className="d-flex flex-column min-vh-100 pt-16 bg-light">
       <Header />
       <div className="container mt-5">
         <h1 className="text-center mb-4 display-5">Entre em Contato</h1>
         <p className="text-center mb-5 text-muted">Entre em contato conosco através de qualquer um dos meios abaixo.</p>
-
         <div className="row justify-content-center">
           <div className="col-md-5 mb-4">
             <div className="card contato-card p-4 shadow h-100 text-start">
@@ -20,7 +52,7 @@ const Contato = () => {
                   <h5>Telefone/WhatsApp:</h5>
                   <p>
                     <a href="tel:+5544999760543" className="text-decoration-none text-dark link-hover">
-                      (44) 99976-0543
+                    {contato[0]?.whatsapp || "Carregando..."}
                     </a>
                   </p>
                 </div>
@@ -32,7 +64,7 @@ const Contato = () => {
                   <h5>Instagram Casa da Paz:</h5>
                   <p>
                     <a href="https://instagram.com/casadapaz_umuarama" target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark link-hover">
-                      @casadapaz_umuarama
+                    {contato[0]?.instagram || "Carregando..."}
                     </a>
                   </p>
                 </div>
@@ -44,7 +76,7 @@ const Contato = () => {
                   <h5>Fanpage:</h5>
                   <p>
                     <a href="http://facebook.com/CasaDaPazUmuarama" target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark link-hover">
-                      CasaDaPazUmuarama
+                    {contato[0]?.fanpage || "Carregando..."}
                     </a>
                   </p>
                 </div>
@@ -55,7 +87,7 @@ const Contato = () => {
                 <h5>E-mail:</h5>
                 <p>
                   <a href="mailto:casadapazassociacao@gmail.com" className="text-decoration-none text-dark link-hover">
-                    casadapazassociacao@gmail.com
+                  {contato[0]?.email || "Carregando..."}
                   </a>
                 </p>
               </div>
@@ -69,7 +101,7 @@ const Contato = () => {
                 <FaMapMarkerAlt className="icon-style" style={{ color: '#28a745' }} />
                 <div>
                   <h5>Endereço da Sede:</h5>
-                  <p>Rua Mimosa, 3172, Jd. Panorama</p>
+                  <p>{contato[0]?.endereco_sede || "Carregando..."}</p>
                 </div>
               </div>
 
@@ -77,7 +109,7 @@ const Contato = () => {
                 <FaMapMarkerAlt className="icon-style" style={{ color: '#28a745' }} />
                 <div>
                   <h5>Endereço do Bazar e SEBO Literário:</h5>
-                  <p>Av. Rio de Janeiro, 4453, Zona II</p>
+                  <p><p>{contato[0]?.endereco_bazar || "Carregando..."}</p></p>
                 </div>
               </div>
 
@@ -87,7 +119,7 @@ const Contato = () => {
                   <h5>Instagram Bazar Beneficente:</h5>
                   <p>
                     <a href="https://instagram.com/bazaresebo_casadapaz" target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark link-hover">
-                      @bazaresebo_casadapaz
+                    <p>{contato[0]?.instagram_bazar || "Carregando..."}</p>
                     </a>
                   </p>
                 </div>
