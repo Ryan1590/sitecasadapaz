@@ -37,6 +37,12 @@ const Contato = () => {
   }, []);
 
 
+  const formatPhone = (phone: string) => {
+    return phone
+      .replace(/\D/g, '')
+      .replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3'); 
+  };
+
   return (
     <div className="d-flex flex-column min-vh-100 pt-16 bg-light">
       <Header />
@@ -51,8 +57,8 @@ const Contato = () => {
                 <div>
                   <h5>Telefone/WhatsApp:</h5>
                   <p>
-                    <a href="tel:+5544999760543" className="text-decoration-none text-dark link-hover">
-                    {contato[0]?.whatsapp || "Carregando..."}
+                    <a href={`${contato[0]?.whatsapp}`} className="text-decoration-none text-dark link-hover">
+                      {contato[0]?.whatsapp ? formatPhone(contato[0].whatsapp) : "Carregando..."}
                     </a>
                   </p>
                 </div>
@@ -63,9 +69,9 @@ const Contato = () => {
                 <div>
                   <h5>Instagram Casa da Paz:</h5>
                   <p>
-                    <a href="https://instagram.com/casadapaz_umuarama" target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark link-hover">
-                    {contato[0]?.instagram || "Carregando..."}
-                    </a>
+                    <a href={`https://instagram.com/${contato[0]?.instagram}`} target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark link-hover">
+                      @{contato[0]?.instagram || "Carregando..."}
+                   </a>
                   </p>
                 </div>
               </div>
@@ -75,7 +81,7 @@ const Contato = () => {
                 <div>
                   <h5>Fanpage:</h5>
                   <p>
-                    <a href="http://facebook.com/CasaDaPazUmuarama" target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark link-hover">
+                    <a href={`http://facebook.com/${contato[0]?.fanpage}`} target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark link-hover">
                     {contato[0]?.fanpage || "Carregando..."}
                     </a>
                   </p>
@@ -86,7 +92,7 @@ const Contato = () => {
               <div>
                 <h5>E-mail:</h5>
                 <p>
-                  <a href="mailto:casadapazassociacao@gmail.com" className="text-decoration-none text-dark link-hover">
+                  <a href={`mailto:${contato[0]?.email}`} className="text-decoration-none text-dark link-hover">
                   {contato[0]?.email || "Carregando..."}
                   </a>
                 </p>
@@ -118,8 +124,8 @@ const Contato = () => {
                 <div>
                   <h5>Instagram Bazar Beneficente:</h5>
                   <p>
-                    <a href="https://instagram.com/bazaresebo_casadapaz" target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark link-hover">
-                    <p>{contato[0]?.instagram_bazar || "Carregando..."}</p>
+                    <a href={`https://instagram.com/${contato[0]?.instagram_bazar}`} target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark link-hover">
+                      <p>@{contato[0]?.instagram_bazar || "Carregando..."}</p>
                     </a>
                   </p>
                 </div>
