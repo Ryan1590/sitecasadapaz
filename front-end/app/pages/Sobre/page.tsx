@@ -66,7 +66,7 @@ const Sobre = () => {
       <Header />
 
       {/* Banner */}
-      <div className="text-center" style={{ overflow: 'hidden', height: '400px' }}>
+      <div className="text-center" style={{ overflow: 'hidden', height: '500px' }}>
         <img
         src={`data:image/jpeg;base64,${sobre[0]?.banner_principal|| "Carregando..."}`}
           alt="Banner da Casa da Paz"
