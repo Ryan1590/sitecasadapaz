@@ -66,7 +66,7 @@ const Sobre = () => {
       <Header />
 
       {/* Banner */}
-      <div className="text-center" style={{ overflow: 'hidden', height: '400px' }}>
+      <div className="text-center" style={{ overflow: 'hidden', height: '500px' }}>
         <img
         src={`data:image/jpeg;base64,${sobre[0]?.banner_principal|| "Carregando..."}`}
           alt="Banner da Casa da Paz"
@@ -160,18 +160,13 @@ const Sobre = () => {
 
           <hr className="my-5" />
           <h2 className="text-center mb-4">Diretoria</h2>
-          <div className="row mb-5">
+          <div className="row mb-4 ">
             <div className="row mb-5">
               {equipe.map((membro) => (
                 <div className="col-md-3 text-center" key={membro.id}>
-                  <div className="card mb-4 shadow-sm border-light">
-                    <div style={{ height: '350px', overflow: 'hidden' }}>
-                      <img
-                        src={membro.foto}
-                        className="card-img-top"
-                        alt={membro.nome}
-                        style={{ width: '100%', height: '100%', objectFit: 'fill' }}
-                      />
+                  <div className="card mb-4 shadow-sm border-light" style={{ width: '18rem' }}>
+                    <div style={{ height: '250px', overflow: 'hidden' }}>
+                      <img src={membro.foto} className="card-img-top" alt={membro.nome} style={{ width: '100%', height: '100%', objectFit: 'fill' }}/>
                     </div>
                     <div className="card-body">
                       <h5 className="card-title text-primary">{membro.nome}</h5>
