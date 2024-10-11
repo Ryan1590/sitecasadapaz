@@ -1,0 +1,120 @@
+/* Container Background */
+.container-background {
+    background-image: url('/img/img_fundo_doacao.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  
+  /* Texto Principal */
+  .main-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    animation: fadeInDown 1s ease-in-out;
+  }
+  
+  .main-quote {
+    font-size: 1.8rem;
+    color: #fff;
+    font-style: italic;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  /* Animações @keyframes */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  
+  @keyframes rotateIn {
+    from {
+      opacity: 0;
+      transform: rotate(-90deg);
+    }
+    to {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+  }
+  
+  /* Cartão de Doação */
+  .donation-card {
+    background-color: #007bff;
+    color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 1s ease-in-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Ícones com efeito de pulso */
+  .icon-pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  .icon-rotate {
+    animation: rotateIn 1s ease-in-out;
+  }
+  
+  /* Botões */
+  .btn-primary-custom {
+    background: linear-gradient(45deg, #ff9800, #ffc107);
+    color: #333;
+    border: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-primary-custom:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 15px rgba(255, 193, 7, 0.6);
+  }
+  
+  .btn-secondary-custom {
+    border: 2px solid #fff;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-secondary-custom:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+  }
+  
