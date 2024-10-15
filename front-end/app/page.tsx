@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import Rodape from './pages/Rodape/page';
+
 
 const Home = () => {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -122,7 +122,7 @@ const Home = () => {
 
         <div className="floating-text">Doar faz bem</div>
       </main>
-      <Rodape />
+    
     </div>
 
 
