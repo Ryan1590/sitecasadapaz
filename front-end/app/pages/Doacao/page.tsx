@@ -16,7 +16,7 @@ const Doacao = () => {
     const receiverName = 'Associação Casa da Paz';
     const receiverCity = 'Sao Paulo';
 
-    // Criando os dados do QR Code usando a biblioteca qrcode-pix
+    // Criando os dados do QR Code usando a biblioteca qrcode-pix 
     const qrCodePix = QrCodePix({
       version: '01',
       key: pixKey,
