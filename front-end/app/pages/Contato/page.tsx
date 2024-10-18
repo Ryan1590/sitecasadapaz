@@ -3,7 +3,7 @@
 import '../Estilo/contato.css';
 import Header from '../Header/page';
 import { FaPhoneAlt, FaInstagram, FaFacebook, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
-import Rodape from '../Rodape/page';
+import Rodape from '../Footer/page';
 import React, { useEffect, useState } from 'react';
 
 interface ContatoData {

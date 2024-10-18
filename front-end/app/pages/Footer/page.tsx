@@ -26,10 +26,6 @@ interface ContatoData {
   email: string;
 }
 
-interface SobreData {
-  sobre: string;
-}
-
 const Footer = () => {
   const [contato, setContato] = useState<ContatoData | null>(null);
   const [sobre, setSobre] = useState<string | null>(null); // Altera para string

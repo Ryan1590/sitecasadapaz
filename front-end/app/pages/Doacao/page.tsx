@@ -1,7 +1,7 @@
 "use client"; 
 
 import Header from "../Header/page";
-import Rodape from "../Rodape/page";
+import Rodape from "../Footer/page";
 import "../Estilo/doacao.css";
 import { FaHeart, FaPiggyBank } from "react-icons/fa";
 import { useState, useEffect } from "react";

@@ -1,5 +1,5 @@
 import Header from '../Header/page';
-import Rodape from '../Rodape/page';
+import Rodape from '../Footer/page';
 
 const Bazar = () => {
     return (

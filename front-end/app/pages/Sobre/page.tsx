@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Header/page";
 import "../Estilo/sobre.css";
-import Rodape from "../Rodape/page";
+import Rodape from "../Footer/page";
 
 interface SobreData {
   sede: string;
