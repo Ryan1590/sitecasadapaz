@@ -33,7 +33,7 @@ const Sobre = () => {
   useEffect(() => {
     const fetchSobre = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/sobre");
+        const response = await fetch("http://localhost:8001/api/sobre");
         if (!response.ok) throw new Error("não houve uma boa resposta");
         const data: SobreData[] = await response.json();
         setSobre(data);
@@ -48,7 +48,7 @@ const Sobre = () => {
   useEffect(() => {
     const fetchEquipe = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/nossaequipe");
+        const response = await fetch("http://localhost:8001/api/nossaequipe");
         if (!response.ok) throw new Error("Erro ao buscar a equipe");
         const data: MembroEquipe[] = await response.json();
         setEquipe(data);

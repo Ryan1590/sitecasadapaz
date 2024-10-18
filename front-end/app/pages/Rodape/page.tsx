@@ -26,15 +26,20 @@ interface ContatoData {
   email: string;
 }
 
+interface SobreData {
+  sobre: string;
+}
+
 const Footer = () => {
   const [contato, setContato] = useState<ContatoData | null>(null);
+  const [sobre, setSobre] = useState<string | null>(null); // Altera para string
 
   useEffect(() => {
     const fetchContato = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/contatos');
+        const response = await fetch('http://localhost:8001/api/contatos');
         if (!response.ok) throw new Error('não houve uma boa resposta');
-        const data: ContatoData[] = await response.json(); // Mudança para array
+        const data: ContatoData[] = await response.json();
         if (data.length > 0) {
           setContato(data[0]); // Pega o primeiro item do array
         } else {
@@ -45,13 +50,31 @@ const Footer = () => {
       }
     };
 
+    const fetchSobre = async () => {
+      try {
+        const response = await fetch('http://localhost:8001/api/sobre');
+        if (!response.ok) throw new Error('não houve uma boa resposta');
+
+        const data = await response.json();
+        setSobre(data[0]?.sobre || null); // Acessa o primeiro item e pega o campo "sobre"
+      } catch (error) {
+        console.error('Erro ao buscar o sobre:', error);
+        setSobre(null);
+      }
+    };
+
     fetchContato();
+    fetchSobre(); // Chama a função para buscar "Sobre"
   }, []);
 
   const footerSections: Section[] = [
     {
       title: "Sobre Nós",
-      content: "A Casa da Paz é uma organização sem fins lucrativos dedicada a ajudar a comunidade em situação de vulnerabilidade. Nossa missão é promover a solidariedade e o bem-estar social.",
+      content: sobre ? (
+        <p>{sobre}</p> // Exibe o campo "sobre"
+      ) : (
+        "Carregando informações sobre..." // Mensagem de carregamento
+      ),
     },
     {
       title: "Links",
@@ -124,8 +147,8 @@ const Footer = () => {
                       <li key={linkIndex}>
                         <a
                           href={link.href}
-                          target={link.target} 
-                          rel="noopener noreferrer" // Segurança
+                          target={link.target}
+                          rel="noopener noreferrer"
                           className="text-white hover:text-gray-300 no-underline transition duration-300"
                         >
                           {link.icon && <i className={`${link.icon} me-2`}></i>}

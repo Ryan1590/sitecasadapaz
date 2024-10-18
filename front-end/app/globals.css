@@ -97,6 +97,7 @@
   color: white;
   opacity: 0;
   animation: float 4s infinite ease-in-out, fadeIn 2s forwards;
+  text-align: center;
 }
 
 @keyframes float {

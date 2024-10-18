@@ -24,7 +24,7 @@ const Contato = () => {
   useEffect(() => {
     const fetchContato = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/contatos');
+        const response = await fetch('http://localhost:8001/api/contatos');
         if (!response.ok) throw new Error('não houve uma boa resposta');
         const data: ContatoData[] = await response.json();
         setContato(data);
