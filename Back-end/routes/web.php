@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerSobreNosController;
 use App\Http\Controllers\NossaEquipeController;
 use App\Http\Controllers\SobrenosController;
 use App\Http\Controllers\ContatosController;
@@ -18,3 +19,5 @@ Route::get('api/nossaequipe', [NossaEquipeController::class, 'index']);
 Route::get('api/contatos', [ContatosController::class, 'index']);
 /* api doacao*/
 Route::get('api/doacao', [DoacaoController::class, 'index']);
+
+Route::get('/api/banners/sobrenos', [BannerSobreNosController::class, 'index']);

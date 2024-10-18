@@ -11,9 +11,13 @@ interface SobreData {
   atividades: string;
   recursos: string;
   sobre: string;
-  imagem_missao?: string;
-  banner_principal: string;
   missao: string;
+}
+
+interface Imagens {
+  banner_principal: string;
+  banner_principal_mobile: string;
+  imagem_missao: string;
 }
 
 interface MembroEquipe {
@@ -26,9 +30,11 @@ interface MembroEquipe {
 
 const Sobre = () => {
   const [sobre, setSobre] = useState<SobreData[]>([]);
+  const [imagens, setImagens] = useState<Imagens | null>(null);
   const [equipe, setEquipe] = useState<MembroEquipe[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [displayCount, setDisplayCount] = useState(4); // Exibe até 4 membros
+  const [bannerImage, setBannerImage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSobre = async () => {
@@ -42,7 +48,19 @@ const Sobre = () => {
       }
     };
 
+    const fetchImagens = async () => {
+      try {
+        const response = await fetch("http://localhost:8001/api/banners/sobrenos");
+        if (!response.ok) throw new Error("Erro ao buscar imagens");
+        const data: Imagens = await response.json();
+        setImagens(data);
+      } catch (error) {
+        console.error("Erro ao buscar imagens:", error);
+      }
+    };
+
     fetchSobre();
+    fetchImagens();
   }, []);
 
   useEffect(() => {
@@ -62,7 +80,7 @@ const Sobre = () => {
 
   const updateDisplayCount = () => {
     if (window.innerWidth < 768) {
-      setDisplayCount(1); 
+      setDisplayCount(1);
     } else {
       setDisplayCount(4);
     }
@@ -74,6 +92,23 @@ const Sobre = () => {
     window.addEventListener("resize", updateDisplayCount);
     return () => window.removeEventListener("resize", updateDisplayCount);
   }, []);
+
+  useEffect(() => {
+    const updateBannerImage = () => {
+      if (imagens) {
+        const currentBanner = window.innerWidth < 768 
+          ? imagens.banner_principal_mobile 
+          : imagens.banner_principal;
+        setBannerImage(currentBanner);
+      }
+    };
+
+    updateBannerImage();
+
+    window.addEventListener("resize", updateBannerImage);
+    
+    return () => window.removeEventListener("resize", updateBannerImage);
+  }, [imagens]);
 
   const nextSlide = () => {
     setCurrentSlide((prevSlide) =>
@@ -95,32 +130,40 @@ const Sobre = () => {
       nextSlide();
     }, 3000);
 
-    return () => clearInterval(interval); 
+    return () => clearInterval(interval);
   }, [currentSlide, displayCount, equipe.length]);
 
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header />
 
-      {/* Banner */}
       <div className="text-center banner-container fade-in" style={{ marginTop: '70px' }}>
-      <img
-        src={`data:image/jpeg;base64,${sobre[0]?.banner_principal || "Carregando Banner..."}`}
-        alt="Banner da Casa da Paz"
-        className="img-fluid"
-      />
-    </div>
+        {bannerImage ? (
+          <img
+            src={bannerImage}
+            alt="Banner da Casa da Paz"
+            className="img-fluid banner-image"
+            style={{ height: '250px', objectFit: 'cover' }}
+          />
+        ) : (
+          <p>Carregando Banner...</p>
+        )}
+      </div>
 
       <main className="flex-grow-1 d-flex flex-column align-items-center text-dark mt-5">
         <div className="container">
           {/* Seção sobre a Casa da Paz */}
           <div className="row mb-5 fade-in">
             <div className="col-md-6">
-              <img
-                src={`data:image/jpeg;base64, ${sobre[0]?.imagem_missao || "Carregando..."}`}
-                alt="Imagem missão"
-                className="img-fluid mb-4 shadow"
-              />
+              {imagens ? (
+                <img
+                  src={imagens.imagem_missao}
+                  alt="Imagem missão"
+                  className="img-fluid mb-4 shadow missão-image"
+                />
+              ) : (
+                <p>Carregando Imagem da Missão...</p>
+              )}
             </div>
             <div className="col-md-6">
               <div className="card mb-4">
@@ -150,7 +193,7 @@ const Sobre = () => {
           <section className="my-5">
             <div className="row fade-in">
               <div className="col-md-12">
-                {/* Seção sobre a Casa da paz */}
+                {/* Seção sobre a Casa da Paz */}
                 <div className="card mb-4">
                   <div className="card-body">
                     <h3 className="mt-4 text-primary">
@@ -210,7 +253,7 @@ const Sobre = () => {
                     <div className="member-image-container">
                       <img src={membro.foto} className="card-img-top" alt={membro.nome} />
                     </div>
-                    <div className="card-body">
+                    <div className="card-body text-center">
                       <h5 className="card-title text-primary">{membro.nome}</h5>
                       <p className="card-text">{membro.cargo}</p>
                       <p className="card-text text-muted">{membro.profissao}</p>

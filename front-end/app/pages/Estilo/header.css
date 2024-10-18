@@ -33,26 +33,28 @@ header {
   z-index: 1000; 
   background-color: rgba(0, 0, 0, 0.8); 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
+  transition: all 0.4s ease; /* Para uma transição suave */
 }
 
+body {
+  padding-top: 50px; /* Ajuste este valor conforme a altura do seu header */
+}
 
 .menu-toggle {
   display: none; /* O botão só será exibido em telas pequenas */
 }
 
-/* Estilos para telas menores que 768px */
 @media (max-width: 768px) {
-
   .nav {
     display: none; /* Esconder o menu em telas pequenas */
     flex-direction: column;
     background-color: white;
     position: absolute;
-    top: 50px;
+    top: 50px; /* Ajuste a posição conforme a altura do header */
     left: 0;
-    right: 0; /* Garante que o menu ocupe toda a largura */
+    right: 0;
     width: 100%;
-    padding: 20px;
+    padding: 10px; /* Reduza o padding para minimizar a altura do menu */
     border-top: 1px solid #ccc;
     z-index: 1000; 
   }
