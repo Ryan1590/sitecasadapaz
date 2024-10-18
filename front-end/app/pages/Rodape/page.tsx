@@ -1,12 +1,13 @@
-import { useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import '../Estilo/footer.css';
-
-
 
 interface Link {
   name: string;
   href: string;
   icon?: string; 
+  target?: string;
 }
 
 interface Section {
@@ -15,8 +16,39 @@ interface Section {
   links?: Link[];
 }
 
+interface ContatoData {
+  whatsapp: string;
+  instagram: string;
+  fanpage: string;
+  endereco_sede: string;
+  endereco_bazar: string;
+  instagram_bazar: string; 
+  email: string;
+}
+
 const Footer = () => {
-  const [footerSections] = useState<Section[]>([
+  const [contato, setContato] = useState<ContatoData | null>(null);
+
+  useEffect(() => {
+    const fetchContato = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/contatos');
+        if (!response.ok) throw new Error('não houve uma boa resposta');
+        const data: ContatoData[] = await response.json(); // Mudança para array
+        if (data.length > 0) {
+          setContato(data[0]); // Pega o primeiro item do array
+        } else {
+          setContato(null); // Caso o array esteja vazio
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+      }
+    };
+
+    fetchContato();
+  }, []);
+
+  const footerSections: Section[] = [
     {
       title: "Sobre Nós",
       content: "A Casa da Paz é uma organização sem fins lucrativos dedicada a ajudar a comunidade em situação de vulnerabilidade. Nossa missão é promover a solidariedade e o bem-estar social.",
@@ -25,34 +57,52 @@ const Footer = () => {
       title: "Links",
       links: [
         { name: "INÍCIO", href: "#" },
-        { name: "SOBRE NÓS", href: "#" },
-        { name: "COMO AJUDAR", href: "#" },
-        { name: "DOAÇÕES", href: "#" },
-        { name: "GALERIA", href: "#" },
-        { name: "BAZAR", href: "#" },
-        { name: "PRÊMIOS", href: "#" },
-        { name: "CONTATO", href: "#" },
+        { name: "SOBRE NÓS", href: "/pages/Sobre" },
+        { name: "COMO AJUDAR", href: "/pages/ComoAjudar" },
+        { name: "DOAÇÕES", href: "/pages/Doacao" },
+        { name: "GALERIA", href: "/pages/Galeria" },
+        { name: "BAZAR", href: "/pages/Bazar" },
+        { name: "PRÊMIOS", href: "/pages/Premios" },
+        { name: "CONTATO", href: "/pages/Contato" },
       ],
     },
     {
       title: "Contato",
-      content: (
+      content: contato ? (
         <div>
-          <p>Email: contato@casadapaz.org</p>
-          <p>Telefone: (00) 0000-0000</p>
-          <p>Endereço: Rua Exemplo, 123, Cidade, Estado</p>
+          <p>Email: {contato.email}</p>
+          <p>Telefone: <a href={`tel:${contato.whatsapp}`} style={{ color: 'white', textDecoration: 'none' }}>{contato.whatsapp}</a></p>
+          <p>Endereço da Sede: {contato.endereco_sede}</p>
+          <p>Endereço do Bazar: {contato.endereco_bazar}</p>
         </div>
+      ) : (
+        <p>Carregando informações de contato...</p>
       ),
     },
     {
       title: "Siga-nos",
       links: [
-        { name: "Facebook", href: "https://facebook.com", icon: "fab fa-facebook" },
-        { name: "Instagram", href: "https://instagram.com", icon: "fab fa-instagram" },
-        { name: "Twitter", href: "https://twitter.com", icon: "fab fa-twitter" },
+        {
+          name: "Facebook",
+          href: contato ? `https://facebook.com/${contato.fanpage}` : "#",
+          icon: "fab fa-facebook",
+          target: "_blank",
+        },
+        {
+          name: "Instagram",
+          href: contato ? `https://instagram.com/${contato.instagram}` : "#",
+          icon: "fab fa-instagram",
+          target: "_blank",
+        },
+        {
+          name: "WhatsApp",
+          href: contato ? `https://wa.me/${contato.whatsapp.replace(/\D/g, '')}` : "#",
+          icon: "fab fa-whatsapp",
+          target: "_blank",
+        },
       ],
     },
-  ]);
+  ];
 
   return (
     <footer className="bg-dark text-white py-5">
@@ -74,6 +124,8 @@ const Footer = () => {
                       <li key={linkIndex}>
                         <a
                           href={link.href}
+                          target={link.target} 
+                          rel="noopener noreferrer" // Segurança
                           className="text-white hover:text-gray-300 no-underline transition duration-300"
                         >
                           {link.icon && <i className={`${link.icon} me-2`}></i>}
