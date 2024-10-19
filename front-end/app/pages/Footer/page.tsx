@@ -67,9 +67,9 @@ const Footer = () => {
     {
       title: "Sobre Nós",
       content: sobre ? (
-        <p>{sobre}</p> // Exibe o campo "sobre"
+        <p>{sobre}</p>
       ) : (
-        "Carregando informações sobre..." // Mensagem de carregamento
+        "Carregando informações sobre..."
       ),
     },
     {
@@ -124,7 +124,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-dark text-white py-5">
+    <footer className="bg-dark text-white py-5 text-center">
       <div className="container mx-auto">
         <div className="row">
           {footerSections.map((section, index) => (
