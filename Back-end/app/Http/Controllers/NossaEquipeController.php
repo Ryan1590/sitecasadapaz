@@ -18,12 +18,13 @@ class NossaEquipeController extends Controller
                 'nome' => $item->nome,
                 'cargo' => $item->cargo, 
                 'profissao' => $item->profissao,
-                'foto' => $item->foto ? 'data:image/jpeg;base64,' . base64_encode($item->foto) : null,
+                // Retorna apenas o caminho da imagem
+                'foto' => $item->foto ?? null,
             ];
         });
     
         return response()->json($equipe);
-    }
+    }    
 
     /**
      * Show the form for creating a new resource.

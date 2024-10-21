@@ -12,19 +12,19 @@ class BannerSobreNosController extends Controller
      */
     public function index()
     {
-        $imagens = BannerSobreNos::all()->map(function ($item) {
-            return [
-                'id' => $item->id,
-                'banner_principal' => $item->banner_principal ? 'data:image/jpeg;base64,' . base64_encode($item->banner_principal) : null,
-                'banner_principal_mobile' => $item->banner_principal_mobile ? 'data:image/jpeg;base64,' . base64_encode($item->banner_principal_mobile) : null,
-                'imagem_missao' => $item->imagem_missao ? 'data:image/jpeg;base64,' . base64_encode($item->imagem_missao) : null,
-            ];
-        })->first(); // Para retornar apenas o primeiro banner
-
-        return response()->json($imagens);
-}
-
-
+        // Obtém o primeiro item
+        $imagens = BannerSobreNos::first();
+    
+        if ($imagens) {
+            return response()->json([
+                'banner_principal' => $imagens->banner_principal ?? null, // Retorna apenas o nome da imagem
+                'banner_principal_mobile' => $imagens->banner_principal_mobile ?? null, // Retorna apenas o nome da imagem
+                'imagem_missao' => $imagens->imagem_missao ?? null, // Retorna apenas o nome da imagem
+            ]);
+        }
+    
+        return response()->json([]);
+    }
     /**
      * Show the form for creating a new resource.
      */

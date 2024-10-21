@@ -140,7 +140,7 @@ const Sobre = () => {
       <div className="text-center banner-container fade-in" style={{ marginTop: '70px' }}>
         {bannerImage ? (
           <img
-            src={bannerImage}
+            src={`${"http://localhost:8000/storage"}/${imagens?.banner_principal}`} // Usando a URL base e o caminho da imagem
             alt="Banner da Casa da Paz"
             className="img-fluid banner-image"
             style={{ height: '250px', objectFit: 'cover' }}
@@ -157,7 +157,7 @@ const Sobre = () => {
             <div className="col-md-6">
               {imagens ? (
                 <img
-                  src={imagens.imagem_missao}
+                  src={`http://localhost:8000/storage/${imagens.imagem_missao}`} // Usando a URL base e o caminho da imagem
                   alt="Imagem missão"
                   className="img-fluid mb-4 shadow missão-image"
                 />
@@ -251,7 +251,11 @@ const Sobre = () => {
                 <div key={membro.id} className="member-card mb-4 mx-2">
                   <div className="card" style={{ width: "13rem" }}>
                     <div className="member-image-container">
-                      <img src={membro.foto} className="card-img-top" alt={membro.nome} />
+                      <img 
+                        src={`${"http://localhost:8000/storage"}/${membro?.foto}`} // Concatenando a URL
+                        className="card-img-top" 
+                        alt={membro.nome} 
+                      />
                     </div>
                     <div className="card-body text-center">
                       <h5 className="card-title text-primary">{membro.nome}</h5>
