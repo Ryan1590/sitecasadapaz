@@ -30,12 +30,24 @@
   }
 }
 
+h1#title {
+  font-size: 130px !important;
+}
+
+#subtitulo{
+  font-size: 30px !important;
+}
+p.blockquote-footer{
+  font-size: 20px;
+  color: white;
+}
+
 .container {
-  position: relative; /* Para garantir que o texto esteja acima da imagem */
+  position: relative; /*texto acima da imagem */
 }
 
 .nav-link {
-  transition: all 0.3s ease; /* Suaviza a transição */
+  transition: all 0.3s ease;
 }
 
 .nav-item-hover {
@@ -43,7 +55,7 @@
 }
 
 .nav-item-hover:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Fundo mais transparente ao passar o mouse */
+  background-color: rgba(255, 255, 255, 0.1); 
   backdrop-filter: blur(7px); /* Aumenta o desfoque ao passar o mouse, mas de forma leve */
 }
 
@@ -89,7 +101,7 @@
 
 .floating-text {
   position: absolute;
-  top: 80%; /* Ajuste conforme necessário */
+  top: 80%; 
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2rem;
@@ -109,26 +121,3 @@
   }
 }
 
-/*animação pomba*/
-.animation-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 999; /* Para garantir que fique acima de outros elementos */
-}
-
-.bike-animation {
-  font-size: 4rem; /* Tamanho do emoji da motinha */
-  transform: rotate(185deg); /* Rotaciona para a direita */
-  animation: accelerate 2s forwards; /* Animação de aceleração */
-}
-
-@keyframes accelerate {
-  0% {
-    transform: translate(-50%, 0);
-  }
-  100% {
-    transform: translate(200px, -80px); /* Ajuste conforme necessário */
-  }
-}

@@ -1,19 +1,7 @@
-"use client"; // Para indicar que é um Client Component
-
+"use client";
 import Link from 'next/link';
-import { useState } from 'react';
-
 
 const Home = () => {
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const handleNavigation = (page: string) => { 
-    setIsAnimating(true);
-
-    setTimeout(() => {
-      window.location.href = page; 
-    }, 2000);
-  };
 
 
   return (
@@ -23,90 +11,52 @@ const Home = () => {
           <nav className="container">
             <ul className="nav justify-content-center">
               <li className="nav-item">
-                <a
-                  className="nav-link text-white nav-item-hover fw-bold"
-                  href="/"
-                  onClick={(e) => { e.preventDefault(); handleNavigation('/'); }}
-                >
+                <Link href="/" className="nav-link text-white nav-item-hover fw-bold">
                   INÍCIO
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link text-white nav-item-hover fw-bold"
-                  href="/pages/Sobre"
-                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Sobre'); }}
-                >
+                <Link href="/pages/Sobre" className="nav-link text-white nav-item-hover fw-bold">
                   SOBRE NÓS
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link text-white nav-item-hover fw-bold"
-                  href="/pages/ComoAjudar"
-                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/ComoAjudar'); }}
-                >
+                <Link href="/pages/ComoAjudar" className="nav-link text-white nav-item-hover fw-bold">
                   COMO AJUDAR
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link text-white nav-item-hover fw-bold"
-                  href="/pages/Doacao"
-                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Doacao'); }}
-                >
+                <Link href="/pages/Doacao" className="nav-link text-white nav-item-hover fw-bold">
                   DOAÇÕES
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link text-white nav-item-hover fw-bold"
-                  href="/pages/Galeria"
-                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Galeria'); }}
-                >
+                <Link href="/pages/Galeria" className="nav-link text-white nav-item-hover fw-bold">
                   GALERIA
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link text-white nav-item-hover fw-bold"
-                  href="/pages/Bazar"
-                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Bazar'); }}
-                >
+                <Link href="/pages/Bazar" className="nav-link text-white nav-item-hover fw-bold">
                   BAZAR
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link text-white nav-item-hover fw-bold"
-                  href="/pages/Premios"
-                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Premios'); }}
-                >
+                <Link href="/pages/Premios" className="nav-link text-white nav-item-hover fw-bold">
                   PRÊMIOS
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link text-white nav-item-hover fw-bold"
-                  href="/pages/Contato"
-                  onClick={(e) => { e.preventDefault(); handleNavigation('/pages/Contato'); }}
-                >
+                <Link href="/pages/Contato" className="nav-link text-white nav-item-hover fw-bold">
                   CONTATO
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
         </div>
 
-        {isAnimating && (
-          <div className="animation-container">
-            <div className="bike-animation"><img src="/img/pomba.png" alt="moto" width="50px" height="50px"/></div>
-          </div>
-        )}
-
         <h1 id="title" className="display-4 fw-bold fade-in">Casa da Paz</h1>
         <blockquote className="blockquote text-center fw-bold">
-          <p className="mb-0">“Sei que meu trabalho é uma gota no oceano, mas sem ele, o oceano seria menor.”</p>
+          <p className="mb-0" id='subtitulo'>“Sei que meu trabalho é uma gota no oceano, mas sem ele, o oceano seria menor.”</p>
           <br />
           <p className="blockquote-footer text-white">Santa Teresa de Calcutá</p>
         </blockquote>
@@ -122,10 +72,7 @@ const Home = () => {
 
         <div className="floating-text">Doar faz bem</div>
       </main>
-    
     </div>
-
-
   );
 };
 
