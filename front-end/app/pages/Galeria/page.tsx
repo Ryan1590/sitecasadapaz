@@ -1,101 +1,135 @@
 "use client";
-import React, { useEffect, useRef, useState } from 'react';
+
+import { useState } from 'react';
 import Header from '../Header/page';
 import Footer from '../Footer/page';
 import '../Estilo/galeria.css';
+import Modal from 'react-modal';
+import { motion } from 'framer-motion';
+
+const eventos = [
+  {
+    titulo: "Dia das Crianças",
+    imagens: [
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+    ],
+  },
+  {
+    titulo: "Páscoa",
+    imagens: [
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+    ],
+
+  },
+  {
+    titulo: "Natal",
+    imagens: [
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
+    ],
+    
+  },
+];
 
 const Galeria = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const galleryRef = useRef<HTMLDivElement | null>(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
 
-  const images1 = [
-    "https://picsum.photos/200/300",
-    "https://picsum.photos/200/320",
-    "https://picsum.photos/400/300",
-    "https://picsum.photos/200/200",
-    "https://picsum.photos/200/190",
-  ];
-
-  const images2 = [
-    "https://picsum.photos/500/300",
-    "https://picsum.photos/250/300",
-    "https://picsum.photos/200/250",
-    "https://picsum.photos/120/150",
-    "https://picsum.photos/200/190",
-  ];
-
-  const handleImageClick = (src: string) => {
-    setSelectedImage(src);
+  const openModal = (imagem: string) => {
+    setSelectedImage(imagem);
+    setModalIsOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedImage(null);
+    setModalIsOpen(false);
   };
 
-  useEffect(() => {
-    const resizeAll = () => {
-      const gallery = galleryRef.current;
-      if (!gallery) return;
-
-      const altura = parseInt(window.getComputedStyle(gallery).getPropertyValue('grid-auto-rows'));
-      const gap = parseInt(window.getComputedStyle(gallery).getPropertyValue('grid-row-gap'));
-
-      gallery.querySelectorAll('.gallery-item').forEach((item: Element) => {
-        const el = item as HTMLElement;
-        const itemHeight = el.querySelector('.content')!.getBoundingClientRect().height;
-        el.style.gridRowEnd = `span ${Math.ceil((itemHeight + gap) / (altura + gap))}`;
-      });
-    };
-
-    window.addEventListener('resize', resizeAll);
-    resizeAll();
-
-    return () => {
-      window.removeEventListener('resize', resizeAll);
-    };
-  }, []);
-
   return (
-    <div className="d-flex flex-column min-vh-100 pt-16">
+    <div className="d-flex flex-column min-vh-100">
       <Header />
-      <h1 className="text-center my-4">Galeria</h1>
 
-      <div className="text-section">
-        <p>Aqui está uma seleção de algumas das nossas imagens mais impressionantes.</p>
+      <div className="text-center banner-container fade-in">
+        <img
+          src='../img/bannergaleria.png'
+          alt="Banner da Casa da Paz"
+          className="img-fluid banner-image"
+          style={{ height: '600px', width: '100%', objectFit: 'cover' }}
+        />
       </div>
 
-      <div className="gallery" ref={galleryRef}>
-        {images1.map((src, index) => (
-          <div className="gallery-item" key={index} onClick={() => handleImageClick(src)}>
-            <div className="content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <img src={src} alt={`Imagem ${index + 1}`} loading="lazy" />
-            </div>
+      <h1 className="text-center my-4 titulo-galeria">Eventos</h1>
+
+      {eventos.map((evento, index) => (
+        <motion.div
+          key={index}
+          className="evento-section"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.2 }}
+        >
+          <h2 className="evento-titulo">
+            <i className="fas fa-calendar-alt"></i> {evento.titulo}
+          </h2>
+          <div className="imagem-container">
+            {evento.imagens.map((imagem, i) => (
+              <motion.div
+                key={i}
+                className="imagem-wrapper"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <img
+                  src={imagem}
+                  alt={`Imagem ${i + 1} de ${evento.titulo}`}
+                  className="imagem-galeria"
+                  onClick={() => openModal(imagem)}
+                />
+              </motion.div>
+            ))}
           </div>
-        ))}
-      </div>
+        </motion.div>
+      ))}
 
-      <div className="text-section">
-        <p>Continuamos a explorar a beleza através da nossa coleção de imagens.</p>
-      </div>
-
-      <div className="gallery" ref={galleryRef}>
-        {images2.map((src, index) => (
-          <div className="gallery-item" key={index} onClick={() => handleImageClick(src)}>
-            <div className="content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <img src={src} alt={`Imagem ${index + 1 + images1.length}`} loading="lazy" />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {selectedImage && (
-        <div className="modal" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={closeModal}>&times;</span>
-            <img src={selectedImage} alt="" className="modal-image" />
-          </div>
-        </div>
-      )}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Visualização da Imagem"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          },
+          content: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            maxWidth: '450px',
+            margin: 'auto',
+            padding: '0',
+            height: '400px',
+          },
+        }}
+      >
+        <button onClick={closeModal} className="modal-fechar">Fechar</button>
+        <img
+          src={selectedImage}
+          alt="Imagem ampliada"
+          className="imagem-modal"
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+            maxHeight: '400px',
+          }}
+        />
+      </Modal>
 
       <Footer />
     </div>
