@@ -16,6 +16,9 @@ const eventos = [
       "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
       "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
     ],
+    videos: [
+      "../videos/dia_das_criancas.mp4",
+    ]
   },
   {
     titulo: "Páscoa",
@@ -25,7 +28,9 @@ const eventos = [
       "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
       "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
     ],
-
+    videos: [
+      "../videos/pascoa.mp4",
+    ]
   },
   {
     titulo: "Natal",
@@ -35,7 +40,9 @@ const eventos = [
       "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
       "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
     ],
-    
+    videos: [
+      "../videos/natal.mp4",
+    ]
   },
 ];
 
@@ -78,24 +85,53 @@ const Galeria = () => {
           <h2 className="evento-titulo">
             <i className="fas fa-calendar-alt"></i> {evento.titulo}
           </h2>
-          <div className="imagem-container">
-            {evento.imagens.map((imagem, i) => (
-              <motion.div
-                key={i}
-                className="imagem-wrapper"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <img
-                  src={imagem}
-                  alt={`Imagem ${i + 1} de ${evento.titulo}`}
-                  className="imagem-galeria"
-                  onClick={() => openModal(imagem)}
-                />
-              </motion.div>
-            ))}
-          </div>
+
+          {/* Imagens */}
+          {evento.imagens.length > 0 && (
+            <div className="imagem-container">
+              {evento.imagens.map((imagem, i) => (
+                <motion.div
+                  key={i}
+                  className="imagem-wrapper"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <img
+                    src={imagem}
+                    alt={`Imagem ${i + 1} de ${evento.titulo}`}
+                    className="imagem-galeria"
+                    onClick={() => openModal(imagem)}
+                  />
+                </motion.div>
+              ))}
+
+              {/* Adicionando a linha (hr) após as imagens */}
+              <hr className="linha-separadora" />
+            </div>
+          )}
+
+          {/* Vídeos */}
+          {evento.videos.length > 0 && (
+            <div className="video-container">
+              {evento.videos.map((video, i) => (
+                <motion.div
+                  key={i}
+                  className="video-wrapper"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <video
+                    src={video}
+                    controls
+                    className="video-galeria"
+                    style={{ width: '100%', maxHeight: '400px' }}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          )}
         </motion.div>
       ))}
 
