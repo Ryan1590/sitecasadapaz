@@ -1,63 +1,67 @@
 "use client";
 
-import { useState } from 'react';
 import Header from '../Header/page';
 import Footer from '../Footer/page';
 import '../Estilo/galeria.css';
 import Modal from 'react-modal';
 import { motion } from 'framer-motion';
+import React, { useEffect, useState } from "react";
 
-const eventos = [
-  {
-    titulo: "Dia das Crianças",
-    imagens: [
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-    ],
-    videos: [
-      "../videos/dia_das_criancas.mp4",
-    ]
-  },
-  {
-    titulo: "Páscoa",
-    imagens: [
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-    ],
-    videos: [
-      "../videos/pascoa.mp4",
-    ]
-  },
-  {
-    titulo: "Natal",
-    imagens: [
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-      "../img/1-Presidente-Silvia-Ribeiro-Martins.jpg",
-    ],
-    videos: [
-      "../videos/natal.mp4",
-    ]
-  },
-];
+// Interface para os dados que vamos buscar do backend
+interface GaleriaData {
+  id: number;
+  tipo: string;
+  arquivo: string;
+  evento: {
+    titulo: string;
+    descricao: string;
+    data: string;
+  };
+}
 
 const Galeria = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
+  const [galerias, setGalerias] = useState<GaleriaData[]>([]);
 
+  // Função para abrir o modal de visualização de imagem
   const openModal = (imagem: string) => {
     setSelectedImage(imagem);
     setModalIsOpen(true);
   };
 
+  // Função para fechar o modal
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  // useEffect para buscar as galerias e seus eventos do backend
+  useEffect(() => {
+    const fetchGalerias = async () => {
+      try {
+        const response = await fetch("http://localhost:8001/api/eventos/galerias");
+        if (!response.ok) {
+          throw new Error("Não houve uma boa resposta");
+        }
+        const data = await response.json();
+        setGalerias(data); // Ou qualquer outra lógica para manipular os dados
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+    fetchGalerias();
+  }, []);
+
+  // Agrupar galerias por título do evento
+  const groupedGalerias = galerias.reduce((acc, galeria) => {
+    const { titulo } = galeria.evento;
+    
+    if (!acc[titulo]) {
+      acc[titulo] = [];
+    }
+    acc[titulo].push(galeria);
+    return acc;
+  }, {} as { [key: string]: GaleriaData[] });
 
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -72,69 +76,69 @@ const Galeria = () => {
         />
       </div>
 
-      <h1 className="text-center my-4 titulo-galeria">Eventos</h1>
+      <h1 className="text-center my-4 titulo-galeria">Galeria de Eventos</h1>
 
-      {eventos.map((evento, index) => (
+      {/* Mapeamento das galerias agrupadas por título */}
+      {Object.keys(groupedGalerias).map((titulo) => (
         <motion.div
-          key={index}
+          key={titulo}
           className="evento-section"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.2 }}
+          transition={{ duration: 0.5 }}
         >
           <h2 className="evento-titulo">
-            <i className="fas fa-calendar-alt"></i> {evento.titulo}
+            <i className="fas fa-calendar-alt"></i> {titulo}
           </h2>
 
-          {/* Imagens */}
-          {evento.imagens.length > 0 && (
-            <div className="imagem-container">
-              {evento.imagens.map((imagem, i) => (
-                <motion.div
-                  key={i}
-                  className="imagem-wrapper"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <img
-                    src={imagem}
-                    alt={`Imagem ${i + 1} de ${evento.titulo}`}
-                    className="imagem-galeria"
-                    onClick={() => openModal(imagem)}
-                  />
-                </motion.div>
-              ))}
+          {/* Exibição das imagens associadas ao evento */}
+          <div className="imagem-grid">
+            {groupedGalerias[titulo].map((galeria) => (
+              <div key={galeria.id} className="imagem-container">
+                {galeria.arquivo && (
+                  <motion.div
+                    className="imagem-wrapper"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <img
+                      src={`http://localhost:8000/storage/${galeria.arquivo}`} 
+                      alt={`Imagem da galeria de ${titulo}`}
+                      className="imagem-galeria"
+                      onClick={() => openModal(`http://localhost:8000/storage/${galeria.arquivo}`)}
+                    />
+                  </motion.div>
+                )}
+              </div>
+            ))}
+          </div>
 
-              {/* Adicionando a linha (hr) após as imagens */}
-              <hr className="linha-separadora" />
-            </div>
-          )}
+          <hr className="linha-separadora" />
 
-          {/* Vídeos */}
-          {evento.videos.length > 0 && (
+          {/* Exibição dos vídeos associados ao evento */}
+          {groupedGalerias[titulo].some(galeria => galeria.evento.data) && (
             <div className="video-container">
-              {evento.videos.map((video, i) => (
-                <motion.div
-                  key={i}
-                  className="video-wrapper"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <video
-                    src={video}
-                    controls
-                    className="video-galeria"
-                    style={{ width: '100%', maxHeight: '400px' }}
-                  />
-                </motion.div>
-              ))}
+              <motion.div
+                className="video-wrapper"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <hr className="linha-separadora" />
+                <video
+                  src={`../videos/${titulo.toLowerCase()}.mp4`} // Vídeo baseado no título do evento
+                  controls
+                  className="video-galeria"
+                  style={{ width: '100%', maxHeight: '400px' }}
+                />
+              </motion.div>
             </div>
           )}
         </motion.div>
       ))}
 
+      {/* Modal para visualização das imagens */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
