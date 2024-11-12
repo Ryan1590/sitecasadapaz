@@ -115,26 +115,6 @@ const Galeria = () => {
           </div>
 
           <hr className="linha-separadora" />
-
-          {/* Exibição dos vídeos associados ao evento */}
-          {groupedGalerias[titulo].some(galeria => galeria.evento.data) && (
-            <div className="video-container">
-              <motion.div
-                className="video-wrapper"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <hr className="linha-separadora" />
-                <video
-                  src={`../videos/${titulo.toLowerCase()}.mp4`} // Vídeo baseado no título do evento
-                  controls
-                  className="video-galeria"
-                  style={{ width: '100%', maxHeight: '400px' }}
-                />
-              </motion.div>
-            </div>
-          )}
         </motion.div>
       ))}
 
