@@ -2,39 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Eventos;
-use App\Models\Galeria;
+use App\Models\BannerGaleria;
 use Illuminate\Http\Request;
 
-class GaleriaController extends Controller
+class GaleriaBannerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function index()
+    {
+        // Obtém o primeiro item
+        $imagens = BannerGaleria::first();
 
-     public function index(Request $request)
-     {
-         $query = Galeria::with('evento'); // Inclui os eventos relacionados às galerias
+        if ($imagens) {
+            return response()->json([
+                'banner_principal' => $imagens->banner_principal ?? null, // Retorna apenas o nome da imagem
+                'banner_principal_mobile' => $imagens->banner_principal_mobile ?? null, // Retorna apenas o nome da imagem
+            ]);
+        }
 
-         if ($request->filled('titulo')) {
-             if ($request->input('titulo') === 'semfiltro') {
-                 // Filtra por imagens sem evento
-                 $query->whereNull('evento_id');
-             } else {
-                 // Filtra pelo título do evento
-                 $query->whereHas('evento', function ($q) use ($request) {
-                     $q->where('titulo', $request->input('titulo'));
-                 });
-             }
-         }
-
-         $galerias = $query->get();
-
-         // Retorna o JSON com as galerias
-         return response()->json($galerias);
-     }
-
-
+        return response()->json([]);
+    }
 
     /**
      * Show the form for creating a new resource.
