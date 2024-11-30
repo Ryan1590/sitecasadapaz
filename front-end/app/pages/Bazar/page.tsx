@@ -5,7 +5,7 @@ const Bazar = () => {
     return (
         <div className="d-flex flex-column min-vh-100">
             <Header />
-
+            <div className="-mt-2"></div>
             <main className="container my-5">
                 {/* Título */}
                 <section className="text-center mb-5">
