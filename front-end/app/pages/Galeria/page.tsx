@@ -6,23 +6,32 @@ import '../Estilo/galeria.css';
 import Modal from 'react-modal';
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from "react";
+import Link from 'next/link';
 
-// Interface para os dados que vamos buscar do backend
+// Interfaces para os dados que vamos buscar do backend
 interface GaleriaData {
   id: number;
   tipo: string;
   arquivo: string;
-  evento: {
+  evento?: {
     titulo: string;
     descricao: string;
     data: string;
   };
 }
 
+interface BannerData {
+  banner_principal: string;
+  banner_principal_mobile: string;
+}
+
 const Galeria = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
-  const [galerias, setGalerias] = useState<GaleriaData[]>([]);
+  const [galeriasSemEvento, setGaleriasSemEvento] = useState<GaleriaData[]>([]);
+  const [eventos, setEventos] = useState<{ titulo: string; imagens: GaleriaData[] }[]>([]);
+  const [banner, setBanner] = useState<BannerData | null>(null);
+  const [bannerImage, setBannerImage] = useState<string | null>(null);
 
   // Função para abrir o modal de visualização de imagem
   const openModal = (imagem: string) => {
@@ -35,90 +44,148 @@ const Galeria = () => {
     setModalIsOpen(false);
   };
 
-  // useEffect para buscar as galerias e seus eventos do backend
+  // Busca galerias e eventos do backend
   useEffect(() => {
     const fetchGalerias = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/eventos/galerias");
+        const url = `http://localhost:8001/api/eventos/galerias`;
+        const response = await fetch(url);
+
         if (!response.ok) {
-          throw new Error("Não houve uma boa resposta");
+          throw new Error("Erro ao buscar galerias");
         }
-        const data = await response.json();
-        setGalerias(data); // Ou qualquer outra lógica para manipular os dados
+
+        const data: GaleriaData[] = await response.json();
+
+        // Separar galerias sem evento
+        const semEvento = data.filter((galeria) => !galeria.evento);
+
+        // Agrupar galerias por título de evento
+        const agrupado: Record<string, GaleriaData[]> = data.reduce((acc: Record<string, GaleriaData[]>, galeria) => {
+          if (galeria.evento) {
+            const { titulo } = galeria.evento;
+            if (!acc[titulo]) {
+              acc[titulo] = [];
+            }
+            acc[titulo].push(galeria);
+          }
+          return acc;
+        }, {});
+
+        const agrupadoArray = Object.entries(agrupado).map(([titulo, imagens]) => ({
+          titulo,
+          imagens,
+        }));
+
+        setGaleriasSemEvento(semEvento);
+        setEventos(agrupadoArray);
       } catch (error) {
-        console.error("Fetch error:", error);
+        console.error("Erro ao buscar dados:", error);
       }
     };
+
+    const fetchBanner = async () => {
+      try {
+        const response = await fetch("http://localhost:8001/api/banners/galeria");
+        if (!response.ok) throw new Error("Erro ao buscar o banner");
+        const data = await response.json();
+        setBanner(data);
+      } catch (error) {
+        console.error("Erro ao buscar o banner:", error);
+      }
+    };
+
     fetchGalerias();
+    fetchBanner();
   }, []);
 
-  // Agrupar galerias por título do evento
-  const groupedGalerias = galerias.reduce((acc, galeria) => {
-    const { titulo } = galeria.evento;
-    
-    if (!acc[titulo]) {
-      acc[titulo] = [];
-    }
-    acc[titulo].push(galeria);
-    return acc;
-  }, {} as { [key: string]: GaleriaData[] });
+  // Atualiza o banner com base no tamanho da tela
+  useEffect(() => {
+    const updateBannerImage = () => {
+      if (banner) {
+        const currentBanner =
+          window.innerWidth < 768
+            ? banner.banner_principal_mobile
+            : banner.banner_principal;
+        setBannerImage(currentBanner);
+      }
+    };
+
+    updateBannerImage();
+
+    // Atualiza a imagem do banner ao redimensionar a janela
+    window.addEventListener("resize", updateBannerImage);
+    return () => window.removeEventListener("resize", updateBannerImage);
+  }, [banner]);
 
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header />
 
-      <div className="text-center banner-container fade-in">
-        <img
-          src='../img/bannergaleria.png'
-          alt="Banner da Casa da Paz"
-          className="img-fluid banner-image"
-          style={{ height: '600px', width: '100%', objectFit: 'cover' }}
-        />
+      <div className="text-center banner-container fade-in" style={{ marginTop: '120px' }}>
+        {bannerImage ? (
+          <img
+            src={`http://localhost:8000/storage/${bannerImage}`}
+            alt="Banner da Galeria"
+            className="img-fluid banner-image"
+            style={{
+              width: '100%',
+              height: '250px', // Altura fixa
+              objectFit: 'cover', // Ajusta largura sem distorcer
+            }}
+          />
+        ) : (
+          <p>Carregando Banner...</p>
+        )}
       </div>
 
       <h1 className="text-center my-4 titulo-galeria">Galeria de Eventos</h1>
 
-      {/* Mapeamento das galerias agrupadas por título */}
-      {Object.keys(groupedGalerias).map((titulo) => (
-        <motion.div
-          key={titulo}
-          className="evento-section"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="evento-titulo">
-            <i className="fas fa-calendar-alt"></i> {titulo}
-          </h2>
-
-          {/* Exibição das imagens associadas ao evento */}
-          <div className="imagem-grid">
-            {groupedGalerias[titulo].map((galeria) => (
-              <div key={galeria.id} className="imagem-container">
-                {galeria.arquivo && (
-                  <motion.div
-                    className="imagem-wrapper"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <img
-                      src={`http://localhost:8000/storage/${galeria.arquivo}`} 
-                      alt={`Imagem da galeria de ${titulo}`}
-                      className="imagem-galeria"
-                      onClick={() => openModal(`http://localhost:8000/storage/${galeria.arquivo}`)}
-                    />
-                  </motion.div>
-                )}
+      <div className="row justify-content-center">
+        {/* Card fixo para imagens sem evento */}
+        {galeriasSemEvento.length > 0 && (
+          <motion.div
+            className="col-md-3 mb-4"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Link href={`/pages/Galeria/semfiltro`} className="card h-100 text-decoration-none">
+              <div className="card-header text-center">Fotos Gerais</div>
+              <div className="card-body">
+                <img
+                  src={`http://localhost:8000/storage/${galeriasSemEvento[0].arquivo}`}
+                  alt="Fotos Gerais"
+                  className="img-fluid"
+                />
               </div>
-            ))}
-          </div>
+            </Link>
+          </motion.div>
+        )}
 
-          <hr className="linha-separadora" />
-        </motion.div>
-      ))}
+        {/* Cards para eventos com galerias */}
+        {eventos.map(({ titulo, imagens }) => (
+          <motion.div
+            key={titulo}
+            className="col-md-3 mb-4"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Link href={`/pages/Galeria/${titulo}`} className="card h-100 text-decoration-none">
+              <div className="card-header text-center">{titulo}</div>
+              <div className="card-body">
+                <img
+                  src={`http://localhost:8000/storage/${imagens[0].arquivo}`}
+                  alt={`Imagem de ${titulo}`}
+                  className="img-fluid"
+                />
+              </div>
+            </Link>
+          </motion.div>
+        ))}
+      </div>
 
-      {/* Modal para visualização das imagens */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
