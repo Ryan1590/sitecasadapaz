@@ -1,7 +1,50 @@
-import Header from '../Header/page';
-import Rodape from '../Footer/page';
+"use client";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Header from "../Header/page";
+import Rodape from "../Footer/page";
+
+interface Imagem {
+    id: string | null;
+    imagem_bazar: string | null; // Agora estamos esperando o nome da imagem
+}
+
+interface Endereco {
+    endereco_bazar: string | null;
+}
 
 const Bazar = () => {
+
+    const [endereco, setEndereco] = useState('');
+
+    useEffect(() => {
+        // Fazendo a requisição para a API
+        fetch('http://localhost:8001/api/contatos')
+            .then(response => response.json())
+            .then(data => {
+                // Acessando o primeiro item do array e pegando o endereco_bazar
+                if (data && data.length > 0) {
+                    setEndereco(data[0].endereco_bazar); // Acessando o primeiro item e pegando endereco_bazar
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao carregar os dados:', error);
+            });
+    }, []);
+
+    const [imagens, setImagens] = useState<Imagem[]>([]);
+
+    useEffect(() => {
+        axios.get<Imagem[]>("http://localhost:8001/api/bazar/imagens")
+            .then(response => {
+                setImagens(response.data);
+            })
+            .catch(error => {
+                console.error("Erro ao buscar imagens:", error);
+            });
+    }, []);
+
     return (
         <div className="d-flex flex-column min-vh-100">
             <Header />
@@ -29,12 +72,13 @@ const Bazar = () => {
                     <h2 className="text-primary mb-4 text-center">Como Funciona</h2>
                     <div className="row">
                         <div className="col-md-4 text-center">
-                            <div className="p-4 shadow-sm rounded bg-light">
-                                <h5 className="fw-bold">Localização</h5>
-                                <p className="text-muted">
-                                    O bazar está localizado na <strong>Av. Rio de Janeiro, 4453, Zona II</strong>. Aberto de terça a sexta das 8h às 17h e sábado das 8h às 12h.
-                                </p>
-                            </div>
+                        <div className="p-4 shadow-sm rounded bg-light">
+                            <h5 className="fw-bold">Localização</h5>
+                            <p className="text-muted">
+                                O bazar está localizado na <strong>{endereco || 'Carregando...'}</strong>. 
+                                Aberto de terça a sexta das 8h às 17h e sábado das 8h às 12h.
+                            </p>
+        </div>
                         </div>
                         <div className="col-md-4 text-center">
                             <div className="p-4 shadow-sm rounded bg-light">
@@ -89,24 +133,27 @@ const Bazar = () => {
                 </section>
 
 
-                {/* Galeria de Imagens */}
                 <section className="mb-5 mt-5">
                     <h2 className="text-primary mb-4 text-center">Bazar Solidário</h2>
                     <div className="row g-3">
-                        {['2', '2', '3', '4', '4', '4'].map((img, index) => (
-                            <div key={index} className="col-6 col-md-4">
-                                <div className="position-relative overflow-hidden rounded shadow-sm">
-                                    <img
-                                        src={`../img/${img}.jpg`}
-                                        alt={`Bazar ${img}`}
-                                        className="img-fluid gallery-img"
-                                    />
+                        {imagens.length > 0 ? (
+                            imagens.map((imagem) => (
+                                <div key={imagem.id} className="col-6 col-md-4">
+                                    <div className="position-relative overflow-hidden rounded shadow-sm d-flex justify-content-center align-items-center">
+                                        <img
+                                            src={`http://localhost:8000/storage/${imagem.imagem_bazar}`} // URL completa
+                                            alt={`Bazar ${imagem.id}`}
+                                            className="img-fluid gallery-img"
+                                            style={{ maxWidth: "100%", maxHeight: "100%" }} // Adicionando um limite para o tamanho da imagem
+                                        />
+                                    </div>          
                                 </div>
-                            </div>
-                        ))}
+                            ))
+                        ) : (
+                            <p className="text-center text-muted">Nenhuma imagem disponível no momento.</p>
+                        )}
                     </div>
                 </section>
-
             </main>
             <Rodape />
         </div>
