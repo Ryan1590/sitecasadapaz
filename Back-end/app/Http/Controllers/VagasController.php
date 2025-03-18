@@ -12,7 +12,7 @@ class VagasController extends Controller
      */
     public function index()
     {
-        $vagas = Vagas::all();
+        $vagas = Vagas::where('necessidade', 'Sim')->get();
         return response()->json($vagas);
     }
 
