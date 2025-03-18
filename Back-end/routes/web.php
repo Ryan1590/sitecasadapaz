@@ -9,6 +9,7 @@ use App\Http\Controllers\DoacaoController;
 use App\Http\Controllers\EventosController;
 use App\Http\Controllers\GaleriaBannerController;
 use App\Http\Controllers\GaleriaController;
+use App\Http\Controllers\VagasController;
 use App\Models\BannerGaleria;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,6 @@ Route::get('/api/eventos/galerias', [GaleriaController::class, 'index']); // Par
 
 // Rota api como ajudar
 Route::get('api/ComoAjudar', [ComoAjudarController::class, 'index']);
+
+// Rota api vagas
+Route::get('api/vagas', [VagasController::class, 'index']);
