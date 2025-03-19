@@ -1,108 +1,75 @@
-/* Estilos do Banner */
-.banner-section {
-  width: 100%;
-  overflow: hidden; /* Garante que nada ultrapasse a borda do banner */
-  margin-bottom: 2rem; /* Espaçamento abaixo do banner */
+/* Importando fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif; /* Fonte profissional */
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
 }
 
-.banner-image {
-  position: relative;
-  width: 100%;
-  height: 500px; /* Altura do banner */
+h1, h2 {
+  font-family: 'Poppins', sans-serif; /* Fonte para títulos */
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.card {
+  border-radius: 10px;
   overflow: hidden;
-  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Efeito de filtro no banner */
-.banner-image img {
-  filter: brightness(60%); /* Ajusta o brilho do banner */
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Título do banner */
-.banner-title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 2.5rem;
+.card-body {
+  padding: 15px;
+}
+
+.card-text {
+  color: #555;
+  font-size: 1.1rem;
   text-align: center;
-  font-weight: bold;
 }
 
-/* Ajuste responsivo para o banner */
-@media (max-width: 768px) {
-  .banner-image {
-    height: 350px; /* Menor altura para telas médias */
-  }
-}
-
-@media (max-width: 576px) {
-  .banner-image {
-    height: 250px; /* Menor altura para telas pequenas */
-  }
-}
-
-/* Wrapper da imagem */
+/* Ajuste para garantir que a imagem se ajuste 100% dentro da div */
 .imageWrapper {
   position: relative;
-  width: 100%;
-  height: 300px; /* Definir altura padrão para maior controle */
-  overflow: hidden;
-  display: flex;
-  justify-content: center;  /* Centraliza horizontalmente */
-  align-items: center;      /* Centraliza verticalmente */
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2));
-  border-radius: 8px;
-  margin-bottom: 1rem; /* Espaçamento entre as imagens */
+  width: 100%; /* Garante que a largura da imagem seja 100% da div */
+  height: 100%; /* Garante que a altura da imagem seja 100% da div */
+  overflow: hidden; /* Garante que nada saia da div */
 }
 
-/* Imagem com object-fit para ajustá-la dentro do espaço sem distorção */
 .card-img-top {
-  object-fit: contain;  /* Garante que a imagem se ajuste sem ser cortada */
-  width: 100%;
-  height: 100%;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  width: 100%; /* Imagem vai ocupar 100% da largura da div */
+  height: 100%; /* Imagem vai ocupar 100% da altura da div */
+  object-fit: contain; /* A imagem será ajustada para caber, sem ser cortada */
 }
 
-/* Efeito ao passar o mouse sobre a imagem */
-.card-img-top:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
-}
 
-/* Estilo do card */
-.card {
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-/* Efeito de hover para o card */
-.card:hover {
-  transform: translateY(-5px);
-}
-
-/* Ajustes no layout das colunas */
-.g-4 {
-  gap: 2rem; /* Espaçamento maior entre as imagens */
-}
-
-/* Responsividade */
 @media (max-width: 768px) {
-  .imageWrapper {
-    height: 250px; /* Menor altura para telas médias */
+  .container {
+    padding: 20px;
+  }
+
+  .row-cols-1 {
+    row-gap: 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .card-text {
+    font-size: 1rem;
   }
 }
-
-@media (max-width: 576px) {
-  .imageWrapper {
-    height: 200px; /* Menor altura para telas pequenas */
-  }
-}
-
-.text-center {
-  color: #343a40;
-}
-

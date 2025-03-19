@@ -22,27 +22,17 @@ const Premios = () => {
   return (
     <div className="d-flex flex-column min-vh-100 pt-4">
       <Header />
-      
-      {/* Banner com imagem de fundo */}
-      <section className="banner-section">
-        <div className="banner-image">
-          <Image 
-            src="/pngtree-awards-party-poster-background-picture-image_1124895.jpg" 
-            alt="Banner"
-            width={1920}
-            height={500}
-            layout="responsive"
-            objectFit="cover"
-          />
-        </div>
+
+      <section className="text-center my-5">
+        <h1 className="fs-1 fw-bold">Prêmios Casa da Paz</h1>
+        <p className="fs-4 text-muted">Ao longo dos anos, a Casa da Paz recebeu prêmios e títulos que reconhecem nosso trabalho e dedicação.</p>
       </section>
 
       <main className="container">
-        <h1 className="text-center my-4 fs-4">Ao longo dos anos a Casa da Paz recebeu alguns Prêmios/Títulos, segue abaixo alguns deles:</h1>
-        <h1 className="text-center my-4 fs-5">Prêmio Impulso | Casa da Paz foi certificada | Categoria Gestão</h1>
+        <h2 className="text-center my-4 fs-4">Prêmios Recebidos</h2>
         {Object.entries(premiosData).map(([ano, premios]) => (
           <section key={ano} className="mb-5">
-            <h2 className="text-center fs-4">{ano}</h2>
+            <h3 className="text-center fs-4 text-primary">{ano}</h3>
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
               {premios.map((premio) => (
                 <div key={premio.id} className="col d-flex justify-content-center">
@@ -53,7 +43,7 @@ const Premios = () => {
                         alt={premio.descricao} 
                         width={300}  
                         height={300}
-                        objectFit="contain"
+                        objectFit="cover"
                         className="card-img-top rounded"
                       />
                     </div>
