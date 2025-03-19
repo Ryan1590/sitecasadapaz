@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('api/csrf-token', function () {
+    return response()->json(['csrf_token' => csrf_token()]);
+});
+
 /* api sobre*/
 Route::get('api/sobre', [SobrenosController::class, 'index']);
 /* api equipes*/
@@ -44,4 +48,7 @@ Route::get('api/ComoAjudar', [ComoAjudarController::class, 'index']);
 Route::get('api/vagas', [VagasController::class, 'index']);
 
 
-Route::post('api/candidatar', [CandidaturaController::class, 'store'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+Route::post('api/candidatar', [CandidaturaController::class, 'store']);
+
+
+

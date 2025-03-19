@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import Header from "../Header/page";
 import Rodape from "../Footer/page";
 
@@ -10,14 +10,18 @@ interface ComoAjudarData {
 }
 
 interface VagaData {
+  id: number;
   vaga: string;
+  necessidade: string;
+  created_at: string;
+  updated_at: string;
 }
 
 const ComoAjudar = () => {
   const [comoAjudar, setComoAjudar] = useState<ComoAjudarData[]>([]);
   const [vagas, setVagas] = useState<VagaData[]>([]);
   const [modalShow, setModalShow] = useState<boolean>(false);
-  const [vagaSelecionada, setVagaSelecionada] = useState<string | null>(null);
+  const [vagaSelecionada, setVagaSelecionada] = useState<number | null>(null); // Alterado para armazenar o id
   const [nome, setNome] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
@@ -57,31 +61,48 @@ const ComoAjudar = () => {
     fetchVagas();
   }, []);
 
-  // Função para enviar candidatura
   const handleCandidatura = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Buscar CSRF token do meta tag
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-    if (!csrfToken) {
-      console.error("CSRF Token não encontrado!");
-      return;
-    }
-
     try {
+      // Primeiro, busque o CSRF token da nova rota
+      const csrfResponse = await fetch("http://localhost:8001/api/csrf-token", {
+        method: "GET",
+        credentials: "include", // Garante que os cookies de sessão sejam enviados
+      });
+      
+      if (!csrfResponse.ok) {
+        throw new Error(`Erro ao buscar CSRF token: ${csrfResponse.statusText}`);
+      }
+      
+      const csrfData = await csrfResponse.json();
+      
+      // Verifique se o CSRF token foi recuperado corretamente
+      const csrfToken = csrfData.csrf_token;
+      console.log(csrfToken); // Adicione este log para verificar o token
+      
+      if (!csrfToken) {
+        console.error("CSRF Token não encontrado!");
+        return;
+      }
+
+      // Agora envie a candidatura com o CSRF token
       const response = await fetch("http://localhost:8001/api/candidatar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRF-TOKEN": csrfToken,  // Incluindo o CSRF token
+          "X-CSRF-TOKEN": csrfToken, // Garantir que o token correto seja enviado
+          "Accept": "application/json" // Enviando o CSRF token no cabeçalho
         },
         body: JSON.stringify({
           nome,
           email,
           vaga: vagaSelecionada,
+          status: "pendente"
         }),
+        credentials: "include", // Garante que os cookies de sessão sejam enviados
       });
+      
 
       if (!response.ok) {
         throw new Error(`Erro ao enviar candidatura: ${response.statusText}`);
@@ -89,11 +110,9 @@ const ComoAjudar = () => {
 
       const result = await response.json();
       console.log(result);
-      // Aqui você pode fazer alguma ação em caso de sucesso, como exibir uma mensagem
-      setModalShow(false); // Fechar o modal após envio
+      setModalShow(false);
     } catch (error) {
       console.error("Erro ao enviar candidatura:", error);
-      // Exibir mensagem de erro, se necessário
     }
   };
 
@@ -135,7 +154,7 @@ const ComoAjudar = () => {
                       <button
                         className="btn btn-lg btn-primary w-100"
                         onClick={() => {
-                          setVagaSelecionada(vaga.vaga);
+                          setVagaSelecionada(vaga.id); // Alterado para armazenar o id da vaga
                           setModalShow(true);
                         }}
                       >
