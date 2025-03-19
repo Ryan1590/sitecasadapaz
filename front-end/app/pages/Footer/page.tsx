@@ -75,14 +75,14 @@ const Footer = () => {
     {
       title: "Links",
       links: [
-        { name: "INÍCIO", href: "#" },
-        { name: "SOBRE NÓS", href: "/pages/Sobre" },
-        { name: "COMO AJUDAR", href: "/pages/ComoAjudar" },
-        { name: "DOAÇÕES", href: "/pages/Doacao" },
-        { name: "GALERIA", href: "/pages/Galeria" },
-        { name: "BAZAR", href: "/pages/Bazar" },
-        { name: "PRÊMIOS", href: "/pages/Premios" },
-        { name: "CONTATO", href: "/pages/Contato" },
+        { name: "Início", href: "#" },
+        { name: "Sobre nós", href: "/pages/Sobre" },
+        { name: "Como Ajudar", href: "/pages/ComoAjudar" },
+        { name: "Doações", href: "/pages/Doacao" },
+        { name: "Galeria", href: "/pages/Galeria" },
+        { name: "Bazar", href: "/pages/Bazar" },
+        { name: "Prêmios", href: "/pages/Premios" },
+        { name: "Contato", href: "/pages/Contato" },
       ],
     },
     {
@@ -124,7 +124,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-dark text-white py-5 text-center">
+    <footer className="bg-black text-white py-5 text-center">
       <div className="container mx-auto">
         <div className="row">
           {footerSections.map((section, index) => (

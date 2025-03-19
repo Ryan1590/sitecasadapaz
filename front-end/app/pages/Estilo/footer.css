@@ -1,0 +1,20 @@
+footer {
+    font-family: 'Poppins', sans-serif; /* Fonte aplicada ao footer */
+    font-size: 16px; /* Tamanho adequado para leitura */
+    line-height: 1.6; /* Melhor espaçamento entre linhas */
+  }
+  
+  footer h5 {
+    font-weight: 600; /* Título em negrito */
+    font-size: 18px;
+  }
+  
+  footer p, footer a {
+    font-weight: 300; /* Texto leve e elegante */
+    color: #ddd; /* Cor suave para contraste */
+  }
+  
+  footer a:hover {
+    color: #fff; /* Destaca ao passar o mouse */
+  }
+  
