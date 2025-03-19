@@ -12,6 +12,7 @@ use App\Http\Controllers\GaleriaBannerController;
 use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\VagasController;
 use App\Http\Controllers\CandidaturaController;
+use App\Http\Controllers\PremiosController;
 use App\Models\BannerGaleria;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,8 @@ Route::get('api/ComoAjudar', [ComoAjudarController::class, 'index']);
 
 // Rota api vagas
 Route::get('api/vagas', [VagasController::class, 'index']);
+
+Route::get('api/premios', [PremiosController::class, 'index']);
 
 
 Route::post('api/candidatar', [CandidaturaController::class, 'store']);
