@@ -66,7 +66,9 @@ const Header = () => {
           </li>
 
           <li className="nav-item">
-            <Link className="nav-link nav-link-padrao text-white fw-bold mr-4" href="/pages/Doacao">DOAR</Link>
+            <Link className="nav-link nav-link-padrao text-success fw-bold mr-4 pulsing" href="/pages/Doacao">
+              DOAR
+            </Link>
           </li>
         </ul>
       </nav>
