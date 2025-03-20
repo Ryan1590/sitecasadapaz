@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react"; 
 import Header from "../Header/page";
 import Rodape from "../Footer/page";
+import Swal from 'sweetalert2'; // Importando o SweetAlert2
 
 interface ComoAjudarData {
   titulo: string;
@@ -106,6 +107,17 @@ const ComoAjudar = () => {
 
       const result = await response.json();
       console.log(result);
+
+      // Exibir a mensagem de sucesso com SweetAlert
+      if (result.message) {
+        Swal.fire({
+          title: 'Pronto!',
+          text: result.message, // Exibe a mensagem de sucesso retornada pela API
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        });
+      }
+
       setModalShow(false);
     } catch (error) {
       console.error("Erro ao enviar candidatura:", error);
