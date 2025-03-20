@@ -1,4 +1,3 @@
-
 @tailwind utilities;
 
 :root {
@@ -20,19 +19,18 @@
 }
 
 .nav-link-padrao:hover {
-  color: #8ef58a !important; 
-  transition: all 0.4s ease; 
+  color: #8ef58a !important;
+  transition: all 0.4s ease;
 }
 
-
 header {
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  z-index: 1000; 
-  background-color: rgba(0, 0, 0, 0.8); 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   transition: all 0.4s ease; /* Para uma transição suave */
 }
 
@@ -42,33 +40,54 @@ body {
 
 .menu-toggle {
   display: none; /* O botão só será exibido em telas pequenas */
+  z-index: 1100; /* Garantir que o botão fique acima do menu */
 }
 
+/* Menu Responsivo */
 @media (max-width: 768px) {
   .nav {
     display: none; /* Esconder o menu em telas pequenas */
     flex-direction: column;
-    background-color: white;
+    background-color: black; /* Aqui, a cor de fundo foi alterada para preto */
     position: absolute;
     top: 50px; /* Ajuste a posição conforme a altura do header */
     left: 0;
     right: 0;
     width: 100%;
-    padding: 10px; /* Reduza o padding para minimizar a altura do menu */
-    border-top: 1px solid #ccc;
-    z-index: 1000; 
+    padding: 10px; /* Reduzindo o padding para minimizar a altura do menu */
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra leve para o menu */
+    visibility: hidden; /* Esconde o menu inicialmente */
+    opacity: 0; /* Esconde o menu inicialmente */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Adiciona uma transição suave */
   }
 
   .nav.show {
-    display: flex; 
+    display: flex;
+    visibility: visible; /* Torna o menu visível */
+    opacity: 1; /* Torna o menu visível com opacidade */
+  }
+
+  .nav-link-padrao {
+    color: var(--foreground); /* Cor de texto padrão conforme o tema */
+    padding: 8px 0; /* Espaçamento adequado para os itens do menu */
+    font-size: 16px; /* Ajuste o tamanho da fonte */
+    text-align: center; /* Alinha os itens do menu no centro */
+    width: 100%;
+  }
+
+  .nav-link-padrao:hover {
+    color: #8ef58a !important; /* Cor de destaque ao passar o mouse */
+    transition: all 0.4s ease;
   }
 
   .menu-toggle i {
-    color: black; 
+    color: var(--foreground); /* Cor do ícone de menu */
+    z-index: 1100; /* Garantir que o ícone esteja acima do menu */
   }
 
   .menu-toggle {
-    display: block; 
+    display: block;
     background: none;
     border: none;
     font-size: 24px;
@@ -79,5 +98,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  
+  /* Remover a borda superior do menu */
+  .nav {
+    border-top: none; /* Remover a borda superior */
   }
 }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from "react"; 
 import Header from "../Header/page";
@@ -21,7 +21,7 @@ const ComoAjudar = () => {
   const [comoAjudar, setComoAjudar] = useState<ComoAjudarData[]>([]);
   const [vagas, setVagas] = useState<VagaData[]>([]);
   const [modalShow, setModalShow] = useState<boolean>(false);
-  const [vagaSelecionada, setVagaSelecionada] = useState<number | null>(null); // Alterado para armazenar o id
+  const [vagaSelecionada, setVagaSelecionada] = useState<number | null>(null); // Armazenando o ID da vaga
   const [nome, setNome] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
@@ -65,44 +65,40 @@ const ComoAjudar = () => {
     e.preventDefault();
 
     try {
-      // Primeiro, busque o CSRF token da nova rota
+      // Buscar o CSRF token da nova rota
       const csrfResponse = await fetch("http://localhost:8001/api/csrf-token", {
         method: "GET",
-        credentials: "include", // Garante que os cookies de sessão sejam enviados
+        credentials: "include",
       });
-      
+
       if (!csrfResponse.ok) {
         throw new Error(`Erro ao buscar CSRF token: ${csrfResponse.statusText}`);
       }
-      
+
       const csrfData = await csrfResponse.json();
-      
-      // Verifique se o CSRF token foi recuperado corretamente
       const csrfToken = csrfData.csrf_token;
-      console.log(csrfToken); // Adicione este log para verificar o token
-      
+
       if (!csrfToken) {
         console.error("CSRF Token não encontrado!");
         return;
       }
 
-      // Agora envie a candidatura com o CSRF token
+      // Enviar a candidatura com o CSRF token
       const response = await fetch("http://localhost:8001/api/candidatar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRF-TOKEN": csrfToken, // Garantir que o token correto seja enviado
-          "Accept": "application/json" // Enviando o CSRF token no cabeçalho
+          "X-CSRF-TOKEN": csrfToken,
+          "Accept": "application/json"
         },
         body: JSON.stringify({
           nome,
           email,
-          vaga: vagaSelecionada,
+          vaga: vagaSelecionada, // Continuamos enviando o ID da vaga
           status: "pendente"
         }),
-        credentials: "include", // Garante que os cookies de sessão sejam enviados
+        credentials: "include",
       });
-      
 
       if (!response.ok) {
         throw new Error(`Erro ao enviar candidatura: ${response.statusText}`);
@@ -120,14 +116,14 @@ const ComoAjudar = () => {
     <div className="d-flex flex-column min-vh-100">
       <Header />
       <main className="container py-5">
-        <h1 className="text-center mb-5 display-4 text-primary font-weight-bold">Como Ajudar</h1>
+        <h1 className="text-center mb-5 display-4 text-primary font-weight-bold mt-5">Como Ajudar</h1>
 
         {/* Renderizando os dados da API ComoAjudar */}
         {comoAjudar.length > 0 ? (
           comoAjudar.map((item, index) => (
             <section key={index} className="mb-5 p-4 border rounded shadow-sm bg-light">
               <h2 className="text-primary">{item.titulo}</h2>
-              <p>{item.descricao}</p>
+              <p className="text-wrap text-break">{item.descricao}</p> {/* Garantindo que o texto se ajuste e quebras de palavra aconteçam se necessário */}
             </section>
           ))
         ) : (
@@ -143,18 +139,18 @@ const ComoAjudar = () => {
 
         {/* Renderizando as Vagas */}
         <section className="mb-5">
-          <h2 className="text-primary mt-4">Vagas Disponíveis</h2>
+          <h2 className="text-success mt-4">Vagas Disponíveis</h2>
           {vagas.length > 0 ? (
-            <div className="row">
+            <div className="row g-4">
               {vagas.map((vaga, index) => (
-                <div key={index} className="col-md-4 mb-4">
-                  <div className="card p-3 border rounded shadow-sm h-100">
+                <div key={index} className="col-12 col-md-4"> {/* Garantindo que a coluna seja responsiva */}
+                  <div className="card p-4 border rounded shadow-sm h-100">
                     <h3 className="card-title text-primary">{vaga.vaga}</h3>
                     <div className="d-flex justify-content-center">
                       <button
                         className="btn btn-lg btn-primary w-100"
                         onClick={() => {
-                          setVagaSelecionada(vaga.id); // Alterado para armazenar o id da vaga
+                          setVagaSelecionada(vaga.id);  // Agora armazenamos o ID da vaga
                           setModalShow(true);
                         }}
                       >
@@ -173,10 +169,13 @@ const ComoAjudar = () => {
         {/* Modal de Candidatura */}
         {modalShow && (
           <div className="modal show" style={{ display: "block" }} onClick={() => setModalShow(false)}>
-            <div className="modal-dialog modal-dialog-centered modal-sm" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-dialog modal-dialog-centered modal-lg" onClick={(e) => e.stopPropagation()}>
               <div className="modal-content rounded-3 shadow-lg">
                 <div className="modal-header position-relative border-bottom-0">
-                  <h5 className="modal-title text-primary">Candidatar-se para {vagaSelecionada}</h5>
+                  {/* Exibindo o nome da vaga no modal */}
+                  <h5 className="modal-title text-primary">
+                    Candidatar-se para a vaga de - {vagas.find((vaga) => vaga.id === vagaSelecionada)?.vaga}
+                  </h5>
                   <button
                     type="button"
                     className="btn btn-sm btn-outline-secondary position-absolute top-0 end-0"
@@ -188,7 +187,7 @@ const ComoAjudar = () => {
                 </div>
                 <div className="modal-body">
                   <form onSubmit={handleCandidatura}>
-                    <div className="form-group mb-3">
+                    <div className="form-group mb-4">
                       <label htmlFor="nome" className="form-label">Nome Completo</label>
                       <input
                         type="text"
@@ -200,7 +199,7 @@ const ComoAjudar = () => {
                         placeholder="Digite seu nome completo"
                       />
                     </div>
-                    <div className="form-group mb-3">
+                    <div className="form-group mb-4">
                       <label htmlFor="email" className="form-label">E-mail</label>
                       <input
                         type="email"
@@ -212,9 +211,11 @@ const ComoAjudar = () => {
                         placeholder="Digite seu e-mail"
                       />
                     </div>
-                    <button type="submit" className="btn btn-lg btn-success w-100 mt-3">
-                      Enviar Candidatura
-                    </button>
+                    <div className="d-flex justify-content-center mt-4">
+                      <button type="submit" className="btn btn-lg btn-success w-75">
+                        Enviar Candidatura
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>
