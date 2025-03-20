@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerComoAjudarController;
 use App\Http\Controllers\BannerSobreNosController;
 use App\Http\Controllers\BazarController;
 use App\Http\Controllers\ComoAjudarController;
@@ -35,6 +36,7 @@ Route::get('api/doacao', [DoacaoController::class, 'index']);
 /* api sobre nós*/
 Route::get('/api/banners/sobrenos', [BannerSobreNosController::class, 'index']);
 Route::get('/api/banners/galeria', [GaleriaBannerController::class, 'index']);
+Route::get('api/banners/comoajudar', [BannerComoAjudarController::class, 'index']);
 
 
 // Rota para listar todos os eventos com suas galerias

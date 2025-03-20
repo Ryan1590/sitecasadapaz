@@ -116,6 +116,7 @@ const ComoAjudar = () => {
     <div className="d-flex flex-column min-vh-100">
       <Header />
       <main className="container py-5">
+        
         <h1 className="text-center mb-5 display-4 text-primary fw-bold mt-5">Como Ajudar</h1>
 
         {/* Renderizando os dados da API ComoAjudar */}

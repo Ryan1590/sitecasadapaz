@@ -107,29 +107,31 @@ const FotosDoEvento = () => {
         {isLoading ? (
           <p className="text-center text-muted">Carregando fotos...</p>
         ) : imagens.length > 0 ? (
-          <div className="row">
-            {imagens.map((imagem) => (
-              <motion.div
-                key={imagem.id}
-                className="col-md-4 mb-4"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="card shadow-sm h-100">
-                  <img
-                    src={`http://localhost:8000/storage/${imagem.arquivo}`}
-                    alt={`Foto do evento ${titulo}`}
-                    className="card-img-top img-fluid"
-                    style={{
-                      objectFit: 'cover',
-                      width: '100%',
-                      height: '250px',
-                    }}
-                  />
+          <div className="container mt-4">
+            <div className="row">
+              {imagens.map((imagem) => (
+                <div key={imagem.id} className="col-md-3 col-6 mb-4 mt-4">
+                  <div className="card" style={{ border: "none", height: "350px" }}>
+                    <div
+                      className="card-img-top"
+                      style={{
+                        height: "100%",
+                        overflow: "hidden",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img
+                        src={`http://localhost:8000/storage/${imagem.arquivo}`}
+                        className="img-fluid w-100 h-100"
+                        style={{ objectFit: "cover" }}
+                        alt="Foto do evento"
+                      />
+                    </div>
+                  </div>
                 </div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
         ) : (
           <p className="text-center text-muted">Nenhuma foto encontrada para este evento.</p>
