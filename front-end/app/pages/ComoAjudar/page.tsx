@@ -5,6 +5,12 @@ import Header from "../Header/page";
 import Rodape from "../Footer/page";
 import Swal from 'sweetalert2'; // Importando o SweetAlert2
 
+interface BannerData {
+  banner_principal: string | null;
+  banner_principal_mobile: string | null;
+  imagem_missao: string | null;
+}
+
 interface ComoAjudarData {
   titulo: string;
   descricao: string;
@@ -19,12 +25,31 @@ interface VagaData {
 }
 
 const ComoAjudar = () => {
+  const [banner, setBanner] = useState<BannerData | null>(null);
   const [comoAjudar, setComoAjudar] = useState<ComoAjudarData[]>([]);
   const [vagas, setVagas] = useState<VagaData[]>([]);
   const [modalShow, setModalShow] = useState<boolean>(false);
-  const [vagaSelecionada, setVagaSelecionada] = useState<number | null>(null); // Armazenando o ID da vaga
+  const [vagaSelecionada, setVagaSelecionada] = useState<number | null>(null);
   const [nome, setNome] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
+  useEffect(() => {
+    fetch("http://localhost:8001/api/banners/comoajudar")
+      .then(response => response.json())
+      .then(data => setBanner(data))
+      .catch(error => console.error("Erro ao buscar banner:", error));
+  }, []);
 
   // Fetch para a API ComoAjudar
   useEffect(() => {
@@ -124,9 +149,40 @@ const ComoAjudar = () => {
     }
   };
 
+
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header />
+
+      <div className="text-center banner-container fade-in" style={{ marginTop: '80px' }}>
+        {banner?.banner_principal && screenWidth >= 768 ? (
+          <img
+            src={`http://localhost:8000/storage/${banner.banner_principal}`}
+            alt="Banner Principal"
+            className="img-fluid banner-image"
+            style={{
+              width: '100%',
+              height: '250px',
+              objectFit: 'cover',
+            }}
+          />
+        ) : (
+          banner?.banner_principal_mobile && (
+            <img
+              src={`http://localhost:8000/storage/${banner.banner_principal_mobile}`}
+              alt="Banner Principal Mobile"
+              className="img-fluid banner-image"
+              style={{
+                width: '100%',
+                height: '250px',
+                objectFit: 'cover',
+              }}
+            />
+          )
+        )}
+      </div>
+
+      
       <main className="container py-5">
         
         <h1 className="text-center mb-5 display-4 text-primary fw-bold mt-5">Como Ajudar</h1>

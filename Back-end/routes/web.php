@@ -36,7 +36,7 @@ Route::get('api/doacao', [DoacaoController::class, 'index']);
 /* api sobre nós*/
 Route::get('/api/banners/sobrenos', [BannerSobreNosController::class, 'index']);
 Route::get('/api/banners/galeria', [GaleriaBannerController::class, 'index']);
-Route::get('api/banners/comoajudar', [BannerComoAjudarController::class, 'index']);
+Route::get('/api/banners/comoajudar', [BannerComoAjudarController::class, 'index']);
 
 
 // Rota para listar todos os eventos com suas galerias

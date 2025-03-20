@@ -80,15 +80,14 @@ const Sobre = () => {
 
   const updateDisplayCount = () => {
     if (window.innerWidth < 768) {
-      setDisplayCount(1);
+      setDisplayCount(1);  // Exibe 1 membro em telas pequenas
     } else {
-      setDisplayCount(4);
+      setDisplayCount(4);  // Exibe até 4 membros em telas maiores
     }
   };
 
   useEffect(() => {
     updateDisplayCount();
-
     window.addEventListener("resize", updateDisplayCount);
     return () => window.removeEventListener("resize", updateDisplayCount);
   }, []);
@@ -104,9 +103,8 @@ const Sobre = () => {
     };
 
     updateBannerImage();
-
     window.addEventListener("resize", updateBannerImage);
-    
+
     return () => window.removeEventListener("resize", updateBannerImage);
   }, [imagens]);
 
@@ -140,7 +138,7 @@ const Sobre = () => {
       <div className="text-center banner-container fade-in" style={{ marginTop: '70px' }}>
         {bannerImage ? (
           <img
-            src={`${"http://localhost:8000/storage"}/${imagens?.banner_principal}`} // Usando a URL base e o caminho da imagem
+            src={`http://localhost:8000/storage/${bannerImage}`} // Usando o banner correto baseado na largura da tela
             alt="Banner da Casa da Paz"
             className="img-fluid banner-image"
             style={{ height: '250px', objectFit: 'cover' }}
