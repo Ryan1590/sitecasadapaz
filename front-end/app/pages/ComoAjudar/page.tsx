@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react"; 
 import Header from "../Header/page";
 import Rodape from "../Footer/page";
+import Swal from 'sweetalert2'; // Importando o SweetAlert2
 
 interface ComoAjudarData {
   titulo: string;
@@ -106,6 +107,17 @@ const ComoAjudar = () => {
 
       const result = await response.json();
       console.log(result);
+
+      // Exibir a mensagem de sucesso com SweetAlert
+      if (result.message) {
+        Swal.fire({
+          title: 'Pronto!',
+          text: result.message, // Exibe a mensagem de sucesso retornada pela API
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        });
+      }
+
       setModalShow(false);
     } catch (error) {
       console.error("Erro ao enviar candidatura:", error);
@@ -150,7 +162,7 @@ const ComoAjudar = () => {
               {vagas.map((vaga, index) => (
                 <div key={index} className="col-12 col-md-4"> {/* Garantindo que a coluna seja responsiva */}
                   <div className="card p-4 border rounded shadow-sm h-100">
-                    <h3 className="card-title text-black">{vaga.vaga}</h3>
+                    <h3 className="card-title text-black font-serif text-2xl">{vaga.vaga}</h3>
                     <div className="d-flex justify-content-center">
                       <button
                         className="btn btn-lg btn-primary w-100"
@@ -178,7 +190,7 @@ const ComoAjudar = () => {
               <div className="modal-content rounded-3 shadow-lg">
                 <div className="modal-header position-relative border-bottom-0">
                   {/* Exibindo o nome da vaga no modal */}
-                  <h5 className="modal-title text-primary">
+                  <h5 className="modal-title text-primary text-center font-serif text-2x3">
                      Candidatar-se à vaga de - {vagas.find((vaga) => vaga.id === vagaSelecionada)?.vaga}
                   </h5>
                   <button
