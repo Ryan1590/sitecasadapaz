@@ -53,9 +53,6 @@ const Header = () => {
             <Link className="nav-link nav-link-padrao text-white fw-bold mr-4" href="/pages/ComoAjudar">COMO AJUDAR</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link nav-link-padrao text-white fw-bold mr-4" href="/pages/Doacao">DOAÇÕES</Link>
-          </li>
-          <li className="nav-item">
             <Link className="nav-link nav-link-padrao text-white fw-bold mr-4" href="/pages/Galeria">GALERIA</Link>
           </li>
           <li className="nav-item">
@@ -66,6 +63,10 @@ const Header = () => {
           </li>
           <li className="nav-item">
             <Link className="nav-link nav-link-padrao text-white fw-bold mr-4" href="/pages/Contato">CONTATO</Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link nav-link-padrao text-white fw-bold mr-4" href="/pages/Doacao">DOAR</Link>
           </li>
         </ul>
       </nav>
