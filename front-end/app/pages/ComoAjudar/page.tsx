@@ -139,18 +139,22 @@ const ComoAjudar = () => {
 
         {/* Renderizando as Vagas */}
         <section className="mb-5">
-          <h2 className="text-success mt-4">Vagas Disponíveis</h2>
+          <div className="text-center mt-4">
+              <h2 className="text-primary text-2xl font-semibold">Vagas Disponíveis</h2>
+              <div className="w-24 h-1 bg-primary mx-auto mt-2 rounded-full"></div>
+          </div>
+
           {vagas.length > 0 ? (
             <div className="row g-4">
               {vagas.map((vaga, index) => (
                 <div key={index} className="col-12 col-md-4"> {/* Garantindo que a coluna seja responsiva */}
                   <div className="card p-4 border rounded shadow-sm h-100">
-                    <h3 className="card-title text-primary">{vaga.vaga}</h3>
+                    <h3 className="card-title text-black">{vaga.vaga}</h3>
                     <div className="d-flex justify-content-center">
                       <button
                         className="btn btn-lg btn-primary w-100"
                         onClick={() => {
-                          setVagaSelecionada(vaga.id);  // Agora armazenamos o ID da vaga
+                          setVagaSelecionada(vaga.id);
                           setModalShow(true);
                         }}
                       >
@@ -174,7 +178,7 @@ const ComoAjudar = () => {
                 <div className="modal-header position-relative border-bottom-0">
                   {/* Exibindo o nome da vaga no modal */}
                   <h5 className="modal-title text-primary">
-                    Candidatar-se para a vaga de - {vagas.find((vaga) => vaga.id === vagaSelecionada)?.vaga}
+                     Candidatar-se à vaga de - {vagas.find((vaga) => vaga.id === vagaSelecionada)?.vaga}
                   </h5>
                   <button
                     type="button"
