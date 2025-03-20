@@ -41,7 +41,7 @@ const Premios: React.FC = () => {
       <Header />
   
       <section className="text-center my-5 pt-5">
-        <h1 className="fs-1 fw-bold">Prêmios Casa da Paz</h1>
+        <h1 className="fs-1 fw-bold text-primary display-4">Prêmios Casa da Paz</h1>
         <p className="fs-4 text-muted pt-4">
           Ao longo dos anos, a Casa da Paz recebeu prêmios e títulos que reconhecem nosso trabalho e dedicação.
         </p>

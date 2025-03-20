@@ -52,7 +52,7 @@ const Bazar = () => {
             <main className="container my-5">
                 {/* Título */}
                 <section className="text-center mb-5">
-                    <h1 className="display-4 fw-bold text-primary">Bazar Beneficente da Casa da Paz</h1>
+                    <h1 className="display-4 fw-bold text-primary mt-5">Bazar Beneficente da Casa da Paz</h1>
                     <p className="fs-5 text-muted">
                         Um espaço onde suas compras e doações fazem a diferença na vida de crianças e adolescentes.
                     </p>
