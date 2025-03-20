@@ -45,7 +45,7 @@ body {
 }
 
 /* Menu Responsivo */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .nav {
     display: none; /* Esconder o menu em telas pequenas */
     flex-direction: column;
@@ -81,11 +81,6 @@ body {
     color: #8ef58a !important; /* Cor de destaque ao passar o mouse */
     transition: all 0.4s ease;
   }
-
-  .menu-toggle i {
-    color: white; /* Cor do ícone de menu */
-    z-index: 1100; /* Garantir que o ícone esteja acima do menu */
-}
 
   .menu-toggle {
     display: block;
