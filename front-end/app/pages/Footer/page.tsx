@@ -159,7 +159,12 @@ const Footer = () => {
           ))}
         </div>
         <div className="text-center mt-4">
-          <p className="mb-0">&copy; 2024 Casa da Paz. Todos os direitos reservados.</p>
+        <hr />
+          <p className="mb-0">
+            <i className="fas fa-code text-primary me-2"></i>
+            Desenvolvido em parceria com a Unialfa por <strong>Ryan Rodrigues</strong> e <strong>Henrique Bertaggi</strong>.
+          </p>
+          <p className="mb-1 mt-2">&copy; 2025 Casa da Paz. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>
