@@ -69,7 +69,11 @@ const Bazar = () => {
 
                 {/* Como Funciona */}
                 <section className="mb-5">
-                    <h2 className="text-primary mb-4 text-center">Como Funciona</h2>
+                    <div className="text-center mt-4">
+                        <h2 className="text-primary text-2xl font-semibold">Como Funciona?</h2>
+                        <div className="w-24 h-1 bg-primary mx-auto mt-2 rounded-full"></div>
+                    </div>
+                    <br />
                     <div className="row">
                         <div className="col-md-4 text-center">
                         <div className="p-4 shadow-sm rounded bg-light">
@@ -78,7 +82,7 @@ const Bazar = () => {
                                 O bazar está localizado na <strong>{endereco || 'Carregando...'}</strong>. 
                                 Aberto de terça a sexta das 8h às 17h e sábado das 8h às 12h.
                             </p>
-        </div>
+                    </div>
                         </div>
                         <div className="col-md-4 text-center">
                             <div className="p-4 shadow-sm rounded bg-light">
@@ -101,7 +105,11 @@ const Bazar = () => {
 
                 {/* Benefícios */}
                   <section className="mb-5">
-                      <h2 className="text-primary mb-4 text-center">Benefícios</h2>
+                  <div className="text-center mt-4">
+                        <h2 className="text-primary text-2xl font-semibold">Beneficios</h2>
+                        <div className="w-24 h-1 bg-primary mx-auto mt-2 rounded-full"></div>
+                    </div>
+                    <br />
                       <div className="row">
                           <div className="col-md-6 mb-4 mb-md-0">
                               <div className="p-5 bg-light rounded shadow">
@@ -134,7 +142,11 @@ const Bazar = () => {
 
 
                 <section className="mb-5 mt-5">
-                    <h2 className="text-primary mb-4 text-center">Bazar Solidário</h2>
+                     <div className="text-center mt-4">
+                        <h2 className="text-primary text-2xl font-semibold">Bazar solidário</h2>
+                        <div className="w-24 h-1 bg-primary mx-auto mt-2 rounded-full"></div>
+                    </div>
+                    <br />
                     <div className="row g-3">
                         {imagens.length > 0 ? (
                             imagens.map((imagem) => (

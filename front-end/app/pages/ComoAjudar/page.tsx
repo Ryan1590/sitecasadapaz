@@ -122,8 +122,8 @@ const ComoAjudar = () => {
         {comoAjudar.length > 0 ? (
           comoAjudar.map((item, index) => (
             <section key={index} className="mb-5 p-4 border rounded shadow-sm bg-light">
-              <h2 className="text-primary">{item.titulo}</h2>
-              <p className="text-wrap text-break">{item.descricao}</p> {/* Garantindo que o texto se ajuste e quebras de palavra aconteçam se necessário */}
+              <h2 className="text-primary font-serif text-2xl">{item.titulo}</h2>
+              <p className="text-wrap text-break font-light text-lg">{item.descricao}</p> {/* Garantindo que o texto se ajuste e quebras de palavra aconteçam se necessário */}
             </section>
           ))
         ) : (
@@ -132,7 +132,7 @@ const ComoAjudar = () => {
 
         {/* Seção de Doações */}
         <section className="mb-5 text-center bg-light p-4 rounded shadow-sm border border-light">
-          <h2 className="text-success mb-3">Faça uma Doação</h2>
+          <h2 className="text-success mb-3 font-serif text-2xl">Faça uma Doação</h2>
           <p className="lead mb-4">Contribua com nossa missão e ajude a transformar vidas.</p>
           <a href="/pages/Doacao" className="btn btn-lg btn-success text-white">Clique aqui para doar</a>
         </section>
@@ -228,7 +228,7 @@ const ComoAjudar = () => {
         )}
 
         <section className="mb-5">
-          <h2 className="text-primary">Como você pode ajudar?</h2>
+          <h2 className="text-primary font-serif text-2xl">Como você pode ajudar?</h2>
           <p className="lead">
             Se interessou? Entre em contato conosco pelos nossos canais disponíveis no menu{" "}
             <a href="/pages/Contato" className="text-decoration-none font-weight-bold">
