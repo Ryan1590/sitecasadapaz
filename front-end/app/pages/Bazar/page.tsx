@@ -156,7 +156,12 @@ const Bazar = () => {
                                             src={`http://localhost:8000/storage/${imagem.imagem_bazar}`} // URL completa
                                             alt={`Bazar ${imagem.id}`}
                                             className="img-fluid gallery-img"
-                                            style={{ maxWidth: "100%", maxHeight: "100%" }} // Adicionando um limite para o tamanho da imagem
+                                            style={{
+                                                width: '100%', 
+                                                height: '400px', 
+                                                objectFit: 'cover', 
+                                                objectPosition: 'center', 
+                                            }}
                                         />
                                     </div>          
                                 </div>
