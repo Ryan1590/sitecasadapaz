@@ -238,7 +238,10 @@ const Sobre = () => {
           </section>
 
           {/* Seção da Diretoria */}
-          <h2 className="text-center mb-4">Diretoria</h2>
+          <div className="text-center mt-4">
+            <h2 className="text-primary text-2xl font-semibold">Integrantes</h2>
+            <div className="w-24 h-1 bg-primary mx-auto mb-4 rounded-full"></div>
+          </div>
           <div className="team-slider d-flex justify-content-center align-items-center">
             <button onClick={prevSlide} className="slider-button">
               &lt;
