@@ -122,7 +122,7 @@ const Galeria = () => {
     <div className="d-flex flex-column min-vh-100">
       <Header />
 
-      <div className="text-center banner-container fade-in" style={{ marginTop: '120px' }}>
+      <div className="text-center banner-container fade-in" style={{ marginTop: '100px' }}>
         {bannerImage ? (
           <img
             src={`http://localhost:8000/storage/${bannerImage}`}
@@ -130,7 +130,7 @@ const Galeria = () => {
             className="img-fluid banner-image"
             style={{
               width: '100%',
-              height: '250px', // Altura fixa
+              height: '472px', // Altura fixa
               objectFit: 'cover', // Ajusta largura sem distorcer
             }}
           />

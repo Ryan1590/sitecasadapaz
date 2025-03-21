@@ -135,13 +135,13 @@ const Sobre = () => {
     <div className="d-flex flex-column min-vh-100">
       <Header />
 
-      <div className="text-center banner-container fade-in" style={{ marginTop: '70px' }}>
+      <div className="text-center banner-container fade-in" style={{ marginTop: '40px' }}>
         {bannerImage ? (
           <img
             src={`http://localhost:8000/storage/${bannerImage}`} // Usando o banner correto baseado na largura da tela
             alt="Banner da Casa da Paz"
             className="img-fluid banner-image"
-            style={{ height: '250px', objectFit: 'cover' }}
+            style={{ height: '472px', objectFit: 'cover' }}
           />
         ) : (
           <p>Carregando Banner...</p>

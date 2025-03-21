@@ -154,7 +154,7 @@ const ComoAjudar = () => {
     <div className="d-flex flex-column min-vh-100">
       <Header />
 
-      <div className="text-center banner-container fade-in" style={{ marginTop: '80px' }}>
+      <div className="text-center banner-container fade-in" style={{ marginTop: '40px' }}>
         {banner?.banner_principal && screenWidth >= 768 ? (
           <img
             src={`http://localhost:8000/storage/${banner.banner_principal}`}
@@ -162,7 +162,7 @@ const ComoAjudar = () => {
             className="img-fluid banner-image"
             style={{
               width: '100%',
-              height: '250px',
+              height: '472px',
               objectFit: 'cover',
             }}
           />
