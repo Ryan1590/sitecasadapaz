@@ -82,7 +82,7 @@ const FotosDoEvento = () => {
     <div className="d-flex flex-column min-vh-100">
       <Header />
 
-      <div className="text-center banner-container fade-in" style={{ marginTop: '70px' }}>
+      <div className="text-center banner-container fade-in" style={{ marginTop: '40px' }}>
         {bannerImage ? (
           <img
             src={`http://localhost:8000/storage/${bannerImage}`}
@@ -90,7 +90,7 @@ const FotosDoEvento = () => {
             className="img-fluid banner-image"
             style={{
               width: '100%',
-              height: '250px', // Altura fixa
+              height: '472px', // Altura fixa
               objectFit: 'cover', // Ajusta a largura sem distorcer
             }}
           />
