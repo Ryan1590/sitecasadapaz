@@ -142,56 +142,64 @@ const Galeria = () => {
       <h1 className="text-center my-4 titulo-galeria fw-bold display-4">Galeria de Eventos</h1>
 
       <div className="row justify-content-center d-flex justify-content-center">
-        {/* Card fixo para imagens sem evento */}
-        {galeriasSemEvento.length > 0 && (
-          <motion.div
+    {/* Card fixo para imagens sem evento */}
+    {galeriasSemEvento.length > 0 && (
+        <motion.div
             className="col-md-3 mb-4"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-          >
-            <Link href={`/pages/Galeria/semfiltro`} className="card h-100 text-decoration-none">
-              <div className="card-header text-center">Fotos Gerais</div>
-              <div className="card-body">
-                <img
-                  src={`http://localhost:8000/storage/${galeriasSemEvento[0].arquivo}`}
-                  alt="Fotos Gerais"
-                  className="img-fluid"
-                />
-              </div>
-            </Link>
-          </motion.div>
-        )}
-
-        {/* Cards para eventos com galerias */}
-        {eventos.map(({ titulo, imagens }) => (
-          <motion.div
-          key={titulo}
-          className="col-md-3 col-12 mb-4 d-flex justify-content-center"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
         >
-          <Link href={`/pages/Galeria/${titulo}`} className="card text-decoration-none" style={{ maxWidth: '300px' }}>
-            <div className="card-header text-center">{titulo}</div>
-            <div className="card-body" style={{ padding: 0 }}>
-              <img
-                src={`http://localhost:8000/storage/${imagens[0].arquivo}`}
-                alt={`Imagem de ${titulo}`}
-                className="img-fluid"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  objectFit: 'cover',
-                  display: 'block',
-                  margin: '0 auto',
-                }}
-              />
-            </div>
-          </Link>
-        </motion.div>             
-        ))}
-      </div>
+            <Link href={`/pages/Galeria/semfiltro`} className="card h-100 text-decoration-none">
+                <div className="card-header text-center">Fotos Gerais</div>
+                <div className="card-body">
+                    <img
+                        src={`http://localhost:8000/storage/${galeriasSemEvento[0].arquivo}`}
+                        alt="Fotos Gerais"
+                        className="img-fluid"
+                        style={{
+                            width: '100%',
+                            height: '400px', 
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                        }}
+                    />
+                </div>
+            </Link>
+        </motion.div>
+    )}
+
+    {/* Cards para eventos com galerias */}
+    {eventos.map(({ titulo, imagens }) => (
+        <motion.div
+            key={titulo}
+            className="col-md-3 col-12 mb-4 d-flex justify-content-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+        >
+            <Link href={`/pages/Galeria/${titulo}`} className="card text-decoration-none" style={{ maxWidth: '300px' }}>
+                <div className="card-header text-center">{titulo}</div>
+                <div className="card-body" style={{ padding: 0 }}>
+                    <img
+                        src={`http://localhost:8000/storage/${imagens[0].arquivo}`}
+                        alt={`Imagem de ${titulo}`}
+                        className="img-fluid"
+                        style={{
+                            width: '100%', 
+                            height: '400px', 
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                            display: 'block',
+                            margin: '0 auto',
+                        }}
+                    />
+                </div>
+            </Link>
+        </motion.div>
+    ))}
+</div>
+
 
       <Modal
         isOpen={modalIsOpen}
