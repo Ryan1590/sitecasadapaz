@@ -100,9 +100,11 @@ const FotosDoEvento = () => {
       </div>
 
       <div className="container mt-4">
-        <h1 className="text-center my-4 titulo-galeria">
-          {titulo === "semfiltro" ? "Fotos Gerais" : `Fotos do Evento: ${titulo}`}
-        </h1>
+      <h1 className="text-center my-4 titulo-galeria">
+        {titulo === "semfiltro"
+          ? "Fotos Gerais"
+          : `Fotos do Evento: ${decodeURIComponent(Array.isArray(titulo) ? titulo[0] : titulo)}`}
+      </h1>
 
         {isLoading ? (
           <p className="text-center text-muted">Carregando fotos...</p>
