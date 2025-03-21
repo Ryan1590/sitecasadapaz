@@ -18,7 +18,6 @@
   }
 }
 
-
 .nav-link-padrao:hover {
   color: #8ef58a !important;
   transition: all 0.4s ease;
@@ -36,11 +35,11 @@ header {
 }
 
 body {
-  padding-top: 50px; 
+  padding-top: 50px;
 }
 
 .menu-toggle {
-  display: none; 
+  display: none;
   z-index: 1100; /* Garantir que o botão fique acima do menu */
 }
 
@@ -49,9 +48,9 @@ body {
   .nav {
     display: none; /* Esconder o menu em telas pequenas */
     flex-direction: column;
-    background-color: black; /*a cor de fundo  */
+    background-color: black; /* Cor de fundo */
     position: absolute;
-    top: 50px; 
+    top: 50px;
     left: 0;
     right: 0;
     width: 100%;
@@ -69,15 +68,25 @@ body {
     opacity: 1; /* Torna o menu visível com opacidade */
   }
 
+  /* Ajustando o alinhamento à esquerda, com padding e bordas brancas */
   .nav-link-padrao {
     color: var(--foreground); /* Cor de texto padrão conforme o tema */
-    padding: 8px 0; /* Espaçamento adequado para os itens do menu */
-    font-size: 16px; /* Ajuste o tamanho da fonte */
-    text-align: center; /* Alinha os itens do menu no centro */
+    padding: 12px 16px; /* Maior espaçamento entre itens */
+    font-size: 18px; /* Ajuste o tamanho da fonte */
+    text-align: left; /* Alinha os itens do menu à esquerda */
     width: 100%;
+    border-bottom: 1px solid #fff5 !important; /* Borda branca para separação dos itens */
+    transition: background-color 0.3s ease; /* Transição para o fundo ao passar o mouse */
   }
 
+  /* Remove o risco do último item do menu */
+  .nav-link-padrao:last-child {
+    border-bottom: none;
+  }
+
+  /* Efeito de hover */
   .nav-link-padrao:hover {
+    background-color: #333; /* Altere para um fundo escuro suave */
     color: #8ef58a !important; /* Cor de destaque ao passar o mouse */
     transition: all 0.4s ease;
   }
@@ -88,6 +97,8 @@ body {
     border: none;
     font-size: 24px;
     cursor: pointer;
+    position: relative !important; /* Garante o controle total sobre a posição do botão */ 
+    transform-origin: center !important; /* Centraliza a transformação */ 
   }
 
   .menu-wrapper {
@@ -95,16 +106,20 @@ body {
     justify-content: space-between;
     align-items: center;
   }
-  
+
   /* Remover a borda superior do menu */
   .nav {
     border-top: none; /* Remover a borda superior */
   }
+
+  /* Adicionar animação de pulsação apenas para o último item de "Doação" */
+  .nav.show .nav-link-padrao:last-child.pulsing {
+    animation: pulse 1.5s infinite;
+    margin-left: 13px;
+  }
 }
 
-
-/*pulsar header campo de doar*/
-
+/* Animação de pulsação */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -120,6 +135,7 @@ body {
   }
 }
 
+/* Botão de Doação com animação de pulsação */
 .pulsing {
   animation: pulse 1.5s infinite;
 }
