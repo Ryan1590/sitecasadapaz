@@ -208,7 +208,7 @@ const ComoAjudar = () => {
 
         {/* Renderizando as Vagas */}
         <section className="mb-5">
-          <div className="text-center mt-4">
+          <div className="text-center mb-4">
               <h2 className="text-primary text-2xl font-semibold">Vagas Disponíveis</h2>
               <div className="w-24 h-1 bg-primary mx-auto mt-2 rounded-full"></div>
           </div>
