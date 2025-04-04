@@ -28,6 +28,13 @@ interface MembroEquipe {
   foto: string;
 }
 
+interface ConvenioData {
+  id: number;
+  nome: string;
+  tipo: "Convenio" | "Parceria";
+}
+
+
 const Sobre = () => {
   const [sobre, setSobre] = useState<SobreData[]>([]);
   const [imagens, setImagens] = useState<Imagens | null>(null);
@@ -64,6 +71,27 @@ const Sobre = () => {
   }, []);
 
   useEffect(() => {
+    const fetchConvenios = async () => {
+      try {
+        const response = await fetch("http://localhost:8001/api/convenios");
+        if (!response.ok) throw new Error("Erro ao buscar convênios");
+        const data: ConvenioData[] = await response.json();
+        setConvenios(data);
+      } catch (error) {
+        console.error("Erro ao buscar convênios:", error);
+      }
+    };
+
+    fetchConvenios();
+  }, []);
+
+  const [convenios, setConvenios] = useState<ConvenioData[]>([]);
+  const conveniosFiltrados = convenios.filter(item => item.tipo === "Convenio");
+  const parceriasFiltradas = convenios.filter(item => item.tipo === "Parceria");
+
+
+
+  useEffect(() => {
     const fetchEquipe = async () => {
       try {
         const response = await fetch("http://localhost:8001/api/nossaequipe");
@@ -95,8 +123,8 @@ const Sobre = () => {
   useEffect(() => {
     const updateBannerImage = () => {
       if (imagens) {
-        const currentBanner = window.innerWidth < 768 
-          ? imagens.banner_principal_mobile 
+        const currentBanner = window.innerWidth < 768
+          ? imagens.banner_principal_mobile
           : imagens.banner_principal;
         setBannerImage(currentBanner);
       }
@@ -130,6 +158,7 @@ const Sobre = () => {
 
     return () => clearInterval(interval);
   }, [currentSlide, displayCount, equipe.length]);
+
 
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -237,6 +266,43 @@ const Sobre = () => {
             </div>
           </section>
 
+          {/* Seção de Convênios e Parcerias */}
+          <div className="row mb-5 fade-in">
+            <div className="col-md-6">
+              <div className="card">
+                <div className="card-body">
+                  <h4 className="card-title text-primary">
+                    <i className="fas fa-handshake mr-2"></i> Convênios
+                  </h4>
+                  <ul className="list-group list-group-flush">
+                    {conveniosFiltrados.map((item) => (
+                      <li key={item.id} className="list-group-item">
+                        {item.nome}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+              
+            <div className="col-md-6 parcerias">
+              <div className="card">
+                <div className="card-body">
+                  <h4 className="card-title text-primary">
+                    <i className="fas fa-handshake mr-2"></i> Parcerias
+                  </h4>
+                  <ul className="list-group list-group-flush">
+                    {parceriasFiltradas.map((item) => (
+                      <li key={item.id} className="list-group-item">
+                        {item.nome}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Seção da Diretoria */}
           <div className="text-center mt-4">
             <h2 className="text-primary text-2xl font-semibold">Integrantes</h2>
@@ -252,10 +318,10 @@ const Sobre = () => {
                 <div key={membro.id} className="member-card mb-4 mx-2">
                   <div className="card" style={{ width: "13rem" }}>
                     <div className="member-image-container">
-                      <img 
+                      <img
                         src={`${"http://localhost:8000/storage"}/${membro?.foto}`} // Concatenando a URL
-                        className="card-img-top" 
-                        alt={membro.nome} 
+                        className="card-img-top"
+                        alt={membro.nome}
                       />
                     </div>
                     <div className="card-body text-center">

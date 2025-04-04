@@ -15,7 +15,9 @@ use App\Http\Controllers\VagasController;
 use App\Http\Controllers\CandidaturaController;
 use App\Http\Controllers\PremiosController;
 use App\Models\BannerGaleria;
+use App\Http\Controllers\ConvenioController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,10 +52,14 @@ Route::get('api/ComoAjudar', [ComoAjudarController::class, 'index']);
 // Rota api vagas
 Route::get('api/vagas', [VagasController::class, 'index']);
 
+// Rota api premios
 Route::get('api/premios', [PremiosController::class, 'index']);
 
-
+// Rota api candidatar
 Route::post('api/candidatar', [CandidaturaController::class, 'store']);
+
+// Rota api convenios
+Route::get('api/convenios', [ConvenioController::class, 'index']);
 
 
 

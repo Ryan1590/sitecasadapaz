@@ -169,6 +169,10 @@ body {
     .car-control {
       display: block !important;
     }
+
+    .parcerias {
+      margin-top: 10px;
+    }
   }
   
 
