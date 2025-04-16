@@ -30,7 +30,6 @@ const Doacao = () => {
         const data: DoacaoData[] = await response.json();
         setDoacao(data);
         
-        // Definindo o CNPJ diretamente do primeiro item do array
         if (data.length > 0) {
           setCnpj(data[0].cnpj);
         }
@@ -43,31 +42,39 @@ const Doacao = () => {
   }, []);
 
   useEffect(() => {
-    if (doacao.length === 0) return; // Verifica se a lista de doação não está vazia
+    if (doacao.length === 0) return;
 
-    const receiverName = doacao[0].titular; // Extraindo o titular da doação
-    const receiverCity = "Sao Paulo";
+    const sanitize = (text: string, limit: number) => {
+      return text
+        .normalize("NFD")                      // Remove acentos
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z0-9 ]/g, "")         // Remove caracteres especiais
+        .substring(0, limit)
+        .trim();
+    };
 
-    // Criando os dados do QR Code usando a biblioteca qrcode-pix
+    const receiverName = sanitize(doacao[0].titular, 25);
+    const receiverCity = sanitize("Sao Paulo", 15);
+    const chavePix = doacao[0].pix;
+
     const qrCodePix = QrCodePix({
       version: "01",
-      key: cnpj, // Usando o CNPJ do estado
+      key: chavePix,
       name: receiverName,
       city: receiverCity,
-      transactionId: "Casa da Paz",
-      message: "Doação para Casa da Paz",
+      transactionId: "CASADAPAZ",
+      message: "Doacao Casa da Paz",
     });
 
-    // Gerando o QR Code em base64
     qrCodePix
       .base64()
       .then((url) => {
         setPixQRCode(url);
       })
       .catch((err) => {
-        console.error(err);
+        console.error("Erro ao gerar QR Code:", err);
       });
-  }, [cnpj, doacao]); // Adicionando doacao como dependência
+  }, [cnpj, doacao]);
 
   const handleDoarAgora = () => {
     setShowQRCode(true);
