@@ -47,8 +47,12 @@ const Contato = () => {
     <div className="d-flex flex-column min-vh-100 pt-16 bg-light">
       <Header />
       <div className="container mt-5">
-        <h1 className="text-center mb-4 display-5 fw-bold text-primary display-4">Entre em Contato</h1>
+      <div className="text-center my-5">
+        <h1 className="display-4 text-primary fw-bold">Entre em Contato</h1>
+        <hr className="w-25 mx-auto border-primary border-3 opacity-100" />
         <p className="text-center mb-5 text-muted">Entre em contato conosco através de qualquer um dos meios abaixo.</p>
+      </div>
+      
         <div className="row justify-content-center">
           <div className="col-md-5 mb-4">
             <div className="card contato-card p-4 shadow h-100 text-start">

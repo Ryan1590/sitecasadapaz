@@ -139,7 +139,11 @@ const Galeria = () => {
         )}
       </div>
 
-      <h1 className="text-center my-4 titulo-galeria fw-bold display-4">Galeria de Eventos</h1>
+      <div className="text-center my-5">
+        <h1 className="display-4 text-primary fw-bold">Galeria de Eventos</h1>
+        <hr className="w-25 mx-auto border-primary border-3 opacity-100" />
+        <p className="text-muted fs-5">Junte-se a nós em ações que transformam vidas.</p>
+      </div>
 
       <div className="row justify-content-center d-flex justify-content-center">
     {/* Card fixo para imagens sem evento */}

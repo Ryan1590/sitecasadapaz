@@ -182,10 +182,13 @@ const ComoAjudar = () => {
         )}
       </div>
 
-      
       <main className="container py-5">
         
-        <h1 className="text-center mb-5 display-4 text-primary fw-bold mt-5">Como Ajudar</h1>
+      <div className="text-center my-5">
+        <h1 className="display-4 text-primary fw-bold">Como Ajudar</h1>
+        <hr className="w-25 mx-auto border-primary border-3 opacity-100" />
+        <p className="text-muted fs-5">Junte-se a nós em ações que transformam vidas.</p>
+      </div>
 
         {/* Renderizando os dados da API ComoAjudar */}
         {comoAjudar.length > 0 ? (

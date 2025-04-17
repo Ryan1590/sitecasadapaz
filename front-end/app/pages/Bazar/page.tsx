@@ -7,7 +7,7 @@ import Rodape from "../Footer/page";
 
 interface Imagem {
     id: string | null;
-    imagem_bazar: string | null; // Agora estamos esperando o nome da imagem
+    imagem_bazar: string | null;
 }
 
 interface Endereco {
@@ -50,13 +50,12 @@ const Bazar = () => {
             <Header />
             <div className="-mt-2"></div>
             <main className="container my-5">
-                {/* Título */}
-                <section className="text-center mb-5">
-                    <h1 className="display-4 fw-bold text-primary mt-5">Bazar Beneficente da Casa da Paz</h1>
-                    <p className="fs-5 text-muted">
-                        Um espaço onde suas compras e doações fazem a diferença na vida de crianças e adolescentes.
-                    </p>
-                </section>
+            
+                <div className="text-center my-5">
+                    <h1 className="display-4 text-primary fw-bold">Bazar Beneficente da Casa da Paz</h1>
+                    <hr className="w-25 mx-auto border-primary border-3 opacity-100" />
+                    <p className="text-muted fs-5">Junte-se a nós em ações que transformam vidas.</p>
+                </div>
 
                 {/* Introdução */}
                 <section className="mb-5">

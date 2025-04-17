@@ -92,12 +92,12 @@ const Doacao = () => {
     <div className="container-background d-flex flex-column min-vh-100">
       <Header />
       <div className="container my-5 text-dark text-center" style={{ overflow: "hidden" }}>
-        <h1 className="my-5 fw-bold text-primary display-4" style={{ fontSize: "2.5rem" }}>
-          Faça a Diferença Hoje
-        </h1>
-        <p className="main-quote lead mb-5" style={{ color: "black", fontSize: "1.2rem" }}>
-          “Deve-se doar com a alma livre, simples, apenas por amor, espontaneamente!” – Martinho Lutero
-        </p>
+       
+        <div className="text-center my-5">
+            <h1 className="display-4 text-primary fw-bold">  Faça a Diferença Hoje</h1>
+            <hr className="w-25 mx-auto border-primary border-3 opacity-100" />
+            <p className="text-muted fs-5">“Deve-se doar com a alma livre, simples, apenas por amor, espontaneamente!” – Martinho Lutero</p>
+        </div>
 
         <div className="donation-card shadow-lg border-0 p-4 animate__animated animate__fadeInUp">
           <div className="card-body">

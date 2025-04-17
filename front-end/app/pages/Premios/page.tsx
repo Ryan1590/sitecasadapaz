@@ -39,15 +39,14 @@ const Premios: React.FC = () => {
   return (
     <div className="d-flex flex-column min-vh-100 pt-4">
       <Header />
-  
-      <section className="text-center my-5 pt-5">
-        <h1 className="fs-1 fw-bold text-primary display-4">Prêmios Casa da Paz</h1>
-        <p className="fs-4 text-muted pt-4">
-          Ao longo dos anos, a Casa da Paz recebeu prêmios e títulos que reconhecem nosso trabalho e dedicação.
-        </p>
-      </section>
-  
-      <main className="container">
+      <main className="container py-5">
+
+      <div className="text-center my-5">
+          <h1 className="display-4 text-primary fw-bold">Prêmios Casa da Paz</h1>
+          <hr className="w-25 mx-auto border-primary border-3 opacity-100" />
+          <p className="text-muted fs-5">Junte-se a nós em ações que transformam vidas.</p>
+      </div>
+
         <h2 className="text-center my-4 fs-4">Prêmios Recebidos</h2>
   
         {loading && <p className="text-center">Carregando...</p>}
