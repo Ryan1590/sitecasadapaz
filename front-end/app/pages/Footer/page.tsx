@@ -33,7 +33,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchContato = async () => {
       try {
-        const response = await fetch('http://localhost:8001/api/contatos');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contatos`);
         if (!response.ok) throw new Error('não houve uma boa resposta');
         const data: ContatoData[] = await response.json();
         if (data.length > 0) {
@@ -48,7 +48,7 @@ const Footer = () => {
 
     const fetchSobre = async () => {
       try {
-        const response = await fetch('http://localhost:8001/api/sobre');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sobre`);
         if (!response.ok) throw new Error('não houve uma boa resposta');
 
         const data = await response.json();

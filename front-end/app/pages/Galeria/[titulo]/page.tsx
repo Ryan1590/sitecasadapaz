@@ -30,7 +30,7 @@ const FotosDoEvento = () => {
       if (!titulo) return;
 
       try {
-        const response = await fetch(`http://localhost:8001/api/eventos/galerias?titulo=${titulo}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/eventos/galerias?titulo=${titulo}`);
         if (!response.ok) {
           throw new Error("Erro ao buscar fotos do evento");
         }
@@ -47,7 +47,7 @@ const FotosDoEvento = () => {
     // Função para buscar o banner
     const fetchBanner = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/banners/galeria");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/banners/galeria`);
         if (!response.ok) throw new Error("Erro ao buscar o banner");
         const data = await response.json();
         setBanner(data);
@@ -85,7 +85,7 @@ const FotosDoEvento = () => {
       <div className="text-center banner-container fade-in" style={{ marginTop: '40px' }}>
         {bannerImage ? (
           <img
-            src={`http://localhost:8000/storage/${bannerImage}`}
+            src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${bannerImage}`}
             alt="Banner do Evento"
             className="img-fluid banner-image"
             style={{
@@ -124,7 +124,7 @@ const FotosDoEvento = () => {
                       }}
                     >
                       <img
-                        src={`http://localhost:8000/storage/${imagem.arquivo}`}
+                        src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${imagem.arquivo}`}
                         className="img-fluid w-100 h-100"
                         style={{ objectFit: "cover" }}
                         alt="Foto do evento"

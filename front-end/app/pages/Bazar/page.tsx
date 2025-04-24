@@ -20,7 +20,7 @@ const Bazar = () => {
 
     useEffect(() => {
         // Fazendo a requisição para a API
-        fetch('http://localhost:8001/api/contatos')
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contatos`)
             .then(response => response.json())
             .then(data => {
                 // Acessando o primeiro item do array e pegando o endereco_bazar
@@ -36,7 +36,7 @@ const Bazar = () => {
     const [imagens, setImagens] = useState<Imagem[]>([]);
 
     useEffect(() => {
-        axios.get<Imagem[]>("http://localhost:8001/api/bazar/imagens")
+        axios.get<Imagem[]>(`${process.env.NEXT_PUBLIC_API_URL}/api/bazar/imagens`)
             .then(response => {
                 setImagens(response.data);
             })
@@ -152,7 +152,7 @@ const Bazar = () => {
                                 <div key={imagem.id} className="col-6 col-md-4">
                                     <div className="position-relative overflow-hidden rounded shadow-sm d-flex justify-content-center align-items-center">
                                         <img
-                                            src={`http://localhost:8000/storage/${imagem.imagem_bazar}`} // URL completa
+                                             src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${imagem.imagem_bazar}`} // URL completa
                                             alt={`Bazar ${imagem.id}`}
                                             className="img-fluid gallery-img"
                                             style={{

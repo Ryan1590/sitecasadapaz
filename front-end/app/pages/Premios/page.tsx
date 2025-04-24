@@ -22,7 +22,7 @@ const Premios: React.FC = () => {
   useEffect(() => {
     const fetchPremios = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/premios");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/premios`);
         if (!response.ok) throw new Error("Erro ao buscar os prêmios.");
         const data: Premio[] = await response.json();
         setPremios(data); // Armazenando os dados corretamente
@@ -61,7 +61,7 @@ const Premios: React.FC = () => {
               <div className="card shadow-sm border-0 h-100">
                 <div className="d-flex justify-content-center align-items-center" style={{ height: '250px', overflow: 'hidden' }}>
                   <img
-                    src={`http://localhost:8000/storage/imagem_premios/${premio.imagem}`} // Caminho atualizado para a pasta imagem_premios
+                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/imagem_premios/${premio.imagem}`} // Caminho atualizado para a pasta imagem_premios
                     alt={`Premio ${premio.id}`}
                     className="img-fluid"
                     style={{ objectFit: "cover", maxHeight: "100%", width: "auto" }} // Ajusta o tamanho da imagem e mantém a proporção

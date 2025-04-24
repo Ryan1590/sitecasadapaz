@@ -48,7 +48,7 @@ const Galeria = () => {
   useEffect(() => {
     const fetchGalerias = async () => {
       try {
-        const url = `http://localhost:8001/api/eventos/galerias`;
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/eventos/galerias`;
         const response = await fetch(url);
 
         if (!response.ok) {
@@ -86,7 +86,7 @@ const Galeria = () => {
 
     const fetchBanner = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/banners/galeria");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/banners/galeria`);
         if (!response.ok) throw new Error("Erro ao buscar o banner");
         const data = await response.json();
         setBanner(data);
@@ -125,7 +125,7 @@ const Galeria = () => {
       <div className="text-center banner-container fade-in" style={{ marginTop: '100px' }}>
         {bannerImage ? (
           <img
-            src={`http://localhost:8000/storage/${bannerImage}`}
+            src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${bannerImage}`}
             alt="Banner da Galeria"
             className="img-fluid banner-image"
             style={{
@@ -158,7 +158,7 @@ const Galeria = () => {
                 <div className="card-header text-center">Fotos Gerais</div>
                 <div className="card-body">
                     <img
-                        src={`http://localhost:8000/storage/${galeriasSemEvento[0].arquivo}`}
+                        src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${galeriasSemEvento[0].arquivo}`}
                         alt="Fotos Gerais"
                         className="img-fluid"
                         style={{
@@ -186,7 +186,7 @@ const Galeria = () => {
                 <div className="card-header text-center">{titulo}</div>
                 <div className="card-body" style={{ padding: 0 }}>
                     <img
-                        src={`http://localhost:8000/storage/${imagens[0].arquivo}`}
+                        src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${imagens[0].arquivo}`}
                         alt={`Imagem de ${titulo}`}
                         className="img-fluid"
                         style={{

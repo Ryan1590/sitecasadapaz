@@ -46,7 +46,7 @@ const Sobre = () => {
   useEffect(() => {
     const fetchSobre = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/sobre");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sobre`);
         if (!response.ok) throw new Error("não houve uma boa resposta");
         const data: SobreData[] = await response.json();
         setSobre(data);
@@ -57,7 +57,7 @@ const Sobre = () => {
 
     const fetchImagens = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/banners/sobrenos");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/banners/sobrenos`);
         if (!response.ok) throw new Error("Erro ao buscar imagens");
         const data: Imagens = await response.json();
         setImagens(data);
@@ -73,7 +73,7 @@ const Sobre = () => {
   useEffect(() => {
     const fetchConvenios = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/convenios");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/convenios`);
         if (!response.ok) throw new Error("Erro ao buscar convênios");
         const data: ConvenioData[] = await response.json();
         setConvenios(data);
@@ -94,7 +94,7 @@ const Sobre = () => {
   useEffect(() => {
     const fetchEquipe = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/nossaequipe");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nossaequipe`);
         if (!response.ok) throw new Error("Erro ao buscar a equipe");
         const data: MembroEquipe[] = await response.json();
         setEquipe(data);
@@ -167,7 +167,7 @@ const Sobre = () => {
       <div className="text-center banner-container fade-in" style={{ marginTop: '40px' }}>
         {bannerImage ? (
           <img
-            src={`http://localhost:8000/storage/${bannerImage}`} // Usando o banner correto baseado na largura da tela
+            src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${bannerImage}`} // Usando o banner correto baseado na largura da tela
             alt="Banner da Casa da Paz"
             className="img-fluid banner-image"
             style={{ height: '472px', objectFit: 'cover' }}
@@ -184,7 +184,7 @@ const Sobre = () => {
             <div className="col-md-6">
               {imagens ? (
                 <img
-                  src={`http://localhost:8000/storage/${imagens.imagem_missao}`} // Usando a URL base e o caminho da imagem
+                  src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${imagens.imagem_missao}`} // Usando a URL base e o caminho da imagem
                   alt="Imagem missão"
                   className="img-fluid mb-4 shadow missão-image"
                 />
@@ -319,7 +319,7 @@ const Sobre = () => {
                   <div className="card" style={{ width: "13rem" }}>
                     <div className="member-image-container">
                       <img
-                        src={`${"http://localhost:8000/storage"}/${membro?.foto}`} // Concatenando a URL
+                        src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${membro?.foto}`}                        // Concatenando a URL
                         className="card-img-top"
                         alt={membro.nome}
                       />

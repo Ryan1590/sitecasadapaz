@@ -45,7 +45,7 @@ const ComoAjudar = () => {
 
 
   useEffect(() => {
-    fetch("http://localhost:8001/api/banners/comoajudar")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/banners/comoajudar`)
       .then(response => response.json())
       .then(data => setBanner(data))
       .catch(error => console.error("Erro ao buscar banner:", error));
@@ -55,7 +55,7 @@ const ComoAjudar = () => {
   useEffect(() => {
     const fetchComoAjudar = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/ComoAjudar");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ComoAjudar`);
         if (!response.ok) {
           throw new Error(`Erro ao buscar dados: ${response.statusText}`);
         }
@@ -73,7 +73,7 @@ const ComoAjudar = () => {
   useEffect(() => {
     const fetchVagas = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/vagas");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/vagas`);
         if (!response.ok) {
           throw new Error(`Erro ao buscar dados de vagas: ${response.statusText}`);
         }
@@ -92,7 +92,7 @@ const ComoAjudar = () => {
 
     try {
       // Buscar o CSRF token da nova rota
-      const csrfResponse = await fetch("http://localhost:8001/api/csrf-token", {
+      const csrfResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/csrf-token`, {
         method: "GET",
         credentials: "include",
       });
@@ -110,7 +110,7 @@ const ComoAjudar = () => {
       }
 
       // Enviar a candidatura com o CSRF token
-      const response = await fetch("http://localhost:8001/api/candidatar", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/candidatar`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -157,7 +157,7 @@ const ComoAjudar = () => {
       <div className="text-center banner-container fade-in" style={{ marginTop: '40px' }}>
         {banner?.banner_principal && screenWidth >= 768 ? (
           <img
-            src={`http://localhost:8000/storage/${banner.banner_principal}`}
+            src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${banner.banner_principal}`}
             alt="Banner Principal"
             className="img-fluid banner-image"
             style={{
@@ -169,7 +169,7 @@ const ComoAjudar = () => {
         ) : (
           banner?.banner_principal_mobile && (
             <img
-              src={`http://localhost:8000/storage/${banner.banner_principal_mobile}`}
+              src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${banner.banner_principal_mobile}`}
               alt="Banner Principal Mobile"
               className="img-fluid banner-image"
               style={{

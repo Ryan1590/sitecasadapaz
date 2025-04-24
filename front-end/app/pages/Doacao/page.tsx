@@ -25,7 +25,7 @@ const Doacao = () => {
   useEffect(() => {
     const fetchDoacao = async () => {
       try {
-        const response = await fetch("http://localhost:8001/api/doacao");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/doacao`);
         if (!response.ok) throw new Error("não houve uma boa resposta");
         const data: DoacaoData[] = await response.json();
         setDoacao(data);
