@@ -10,10 +10,6 @@ interface Imagem {
     imagem_bazar: string | null;
 }
 
-interface Endereco {
-    endereco_bazar: string | null;
-}
-
 const Bazar = () => {
 
     const [endereco, setEndereco] = useState('');
