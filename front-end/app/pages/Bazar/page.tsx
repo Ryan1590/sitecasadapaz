@@ -149,26 +149,27 @@ const Bazar = () => {
                     <div className="row g-3">
                         {imagens.length > 0 ? (
                             imagens.map((imagem) => (
-                                <div key={imagem.id} className="col-6 col-md-4">
-                                    <div className="position-relative overflow-hidden rounded shadow-sm d-flex justify-content-center align-items-center">
-                                        <img
-                                             src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${imagem.imagem_bazar}`} // URL completa
-                                            alt={`Bazar ${imagem.id}`}
-                                            className="img-fluid gallery-img"
-                                            style={{
-                                                width: '100%', 
-                                                height: '400px', 
-                                                objectFit: 'cover', 
-                                                objectPosition: 'center', 
-                                            }}
-                                        />
-                                    </div>          
+                            <div key={imagem.id} className="col-12 col-md-4">
+                                <div className="position-relative overflow-hidden rounded shadow-sm d-flex justify-content-center align-items-center">
+                                <img
+                                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${imagem.imagem_bazar}`}
+                                    alt={`Bazar ${imagem.id}`}
+                                    className="img-fluid gallery-img"
+                                    style={{
+                                    width: '100%',
+                                    height: '400px',
+                                    objectFit: 'fill',
+                                    objectPosition: 'center',
+                                    }}
+                                />
                                 </div>
+                            </div>
                             ))
                         ) : (
                             <p className="text-center text-muted">Nenhuma imagem disponível no momento.</p>
                         )}
                     </div>
+
                 </section>
             </main>
             <Rodape />
